@@ -115,7 +115,8 @@ def _dosya_adi(url: str) -> str | None:
     ad = parca[-1]
     if "/thumb/" in url:  # .../thumb/a/ab/Dosya.jpg/800px-Dosya.jpg
         ad = parca[-2]
-    return requests.utils.unquote(ad)
+    # Commons adları boşlukla döndürür (Vikipedi URL'leri alt çizgi kullanır)
+    return requests.utils.unquote(ad).replace("_", " ")
 
 
 def commons_bilgisi(dosyalar: list[str]) -> dict[str, dict]:
@@ -153,9 +154,11 @@ def commons_bilgisi(dosyalar: list[str]) -> dict[str, dict]:
 
 def adaylari_topla(tarih: dt.date, en_fazla: int = 70) -> list[dict]:
     """Görseli kullanılabilir olan adayları numaralandırılmış biçimde döndürür."""
-    adaylar = turkce_adaylar(tarih) + ingilizce_adaylar(tarih)
-    dosyalar = [_dosya_adi(s["gorsel_url"]) for a in adaylar for s in a["sayfalar"]]
-    izinli = commons_bilgisi([d for d in dosyalar if d])
+    tr, en = turkce_adaylar(tarih), ingilizce_adaylar(tarih)
+    adaylar = tr + en
+    dosyalar = [d for d in (_dosya_adi(s["gorsel_url"]) for a in adaylar for s in a["sayfalar"]) if d]
+    izinli = commons_bilgisi(dosyalar)
+    print(f"[bilgi] olay: TR {len(tr)}, EN {len(en)} | görsel: {len(set(dosyalar))}, izinli: {len(izinli)}")
     temiz = []
     for a in adaylar:
         gorseller = []
@@ -168,6 +171,7 @@ def adaylari_topla(tarih: dt.date, en_fazla: int = 70) -> list[dict]:
             temiz.append(a)
     # Türkçe ve 'seçilmiş' olaylar önce gelsin
     temiz.sort(key=lambda a: (a["kaynak"] != "tr", not a["secilmis"]))
+    print(f"[bilgi] görseli uygun olay: {len(temiz)}")
     temiz = temiz[:en_fazla]
     for i, a in enumerate(temiz):
         a["id"] = i
