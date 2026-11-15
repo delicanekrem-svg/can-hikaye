@@ -111,6 +111,7 @@ def _turkce_gorselleri_ekle(adaylar):
 def _dosya_adi(url: str) -> str | None:
     if not url or "upload.wikimedia.org" not in url:
         return None
+    url = url.split("?")[0].split("#")[0]  # ?utm_source=... gibi ekleri at
     parca = url.split("/")
     ad = parca[-1]
     if "/thumb/" in url:  # .../thumb/a/ab/Dosya.jpg/800px-Dosya.jpg
@@ -128,9 +129,6 @@ def commons_bilgisi(dosyalar: list[str]) -> dict[str, dict]:
         veri = _get(COMMONS, action="query", titles="|".join("File:" + d for d in dosyalar[i:i + 50]),
                     prop="imageinfo", iiprop="url|mime|size|extmetadata", iiurlwidth=1600,
                     format="json", formatversion=2)
-        if i == 0:
-            import json as _j
-            print("[hata-ayıklama]", _j.dumps(veri, ensure_ascii=False)[:1500])
         for p in veri["query"].get("pages", []):
             if p.get("missing") or not p.get("imageinfo"):
                 continue
