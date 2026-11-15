@@ -70,7 +70,7 @@ def uret(tarih: dt.date, test: bool = False) -> Path:
                 shutil.copy(g["yerel"], foto)
             else:
                 from hikaye import wiki
-                wiki.gorsel_indir(g["indir_url"], foto)
+                wiki.gorsel_indir(g["indir_url"], foto, g.get("orijinal_url"))
             icerik = {**s, "kaynak": kaynak_satiri(g)}
             # Tasarımlar gün gün sırayla değişir (gazete, büyük yıl, gazete, ...)
             liste = markalar[m].get("sablonlar") or ["hikaye"]

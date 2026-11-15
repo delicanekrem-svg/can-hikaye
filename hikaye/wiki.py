@@ -5,7 +5,7 @@ import html
 import re
 import requests
 
-UA = {"User-Agent": "CanHikayeBot/1.0 (Can Basimevi & CanWedding gunluk Instagram hikayesi)"}
+UA = {"User-Agent": "CanHikayeBot/1.0 (https://github.com/delicanekrem-svg/can-hikaye; gunluk tek hikaye) python-requests"}
 COMMONS = "https://commons.wikimedia.org/w/api.php"
 
 # Ticari kullanıma ve değiştirmeye izin veren lisanslar (kaynak gösterilerek)
@@ -127,7 +127,7 @@ def commons_bilgisi(dosyalar: list[str]) -> dict[str, dict]:
     dosyalar = list(dict.fromkeys(dosyalar))
     for i in range(0, len(dosyalar), 50):
         veri = _get(COMMONS, action="query", titles="|".join("File:" + d for d in dosyalar[i:i + 50]),
-                    prop="imageinfo", iiprop="url|mime|size|extmetadata", iiurlwidth=1600,
+                    prop="imageinfo", iiprop="url|mime|size|extmetadata", iiurlwidth=1280,
                     format="json", formatversion=2)
         for p in veri["query"].get("pages", []):
             if p.get("missing") or not p.get("imageinfo"):
@@ -143,6 +143,7 @@ def commons_bilgisi(dosyalar: list[str]) -> dict[str, dict]:
                 continue
             sonuc[p["title"].removeprefix("File:")] = {
                 "indir_url": ii.get("thumburl") or ii["url"],
+                "orijinal_url": ii["url"],
                 "sayfa_url": ii.get("descriptionurl"),
                 "lisans": lisans,
                 "sahibi": meta.get("Artist", "")[:80],
@@ -179,7 +180,14 @@ def adaylari_topla(tarih: dt.date, en_fazla: int = 70) -> list[dict]:
     return temiz
 
 
-def gorsel_indir(url: str, hedef) -> None:
-    r = requests.get(url, headers=UA, timeout=60)
+def gorsel_indir(url: str, hedef, yedek_url: str | None = None) -> None:
+    """Wikimedia yoğunlukta 429 dönebilir: bekleyip tekrar dene, olmazsa orijinal dosyayı indir."""
+    import time
+    for deneme, adres in enumerate([url, url, yedek_url or url, yedek_url or url]):
+        r = requests.get(adres, headers=UA, timeout=60)
+        if r.ok:
+            hedef.write_bytes(r.content)
+            return
+        print(f"[uyarı] görsel indirilemedi ({r.status_code}), tekrar denenecek")
+        time.sleep(int(r.headers.get("Retry-After", 0) or 0) or 10 * (deneme + 1))
     r.raise_for_status()
-    hedef.write_bytes(r.content)
