@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Baslik"; src: url("../assets/fontlar/Lora-Variable.ttf"); }
+  @font-face { font-family: "Metin"; src: url("../assets/fontlar/Inter-Regular.otf"); font-weight: 400; }
+  @font-face { font-family: "Metin"; src: url("../assets/fontlar/Inter-Medium.otf"); font-weight: 500; }
+  @font-face { font-family: "Metin"; src: url("../assets/fontlar/Inter-SemiBold.otf"); font-weight: 600; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; }
+  body {
+    background: var(--zemin); color: var(--yazi);
+    font-family: "Metin", sans-serif;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 0 110px; position: relative; overflow: hidden;
+  }
+  .cerceve { position: absolute; inset: 56px; border: 2px solid var(--vurgu); opacity: .35; }
+  .cerceve::after { content: ""; position: absolute; inset: 14px; border: 1px solid var(--vurgu); opacity: .6; }
+  .ust-baslik { font-size: 30px; font-weight: 600; letter-spacing: 7px; color: var(--vurgu); }
+  .tarih { margin-top: 26px; font-size: 32px; font-weight: 500; letter-spacing: 6px; color: var(--yazi2); }
+  .cizgi { margin-top: 56px; width: 64px; height: 2px; background: var(--vurgu); }
+  h1, .mesaj { text-wrap: balance; }
+  h1 {
+    margin-top: 56px; font-family: "Baslik", serif; font-weight: 500;
+    font-size: {{baslik_px}}px; line-height: 1.12; letter-spacing: -.5px;
+  }
+  .mesaj { margin-top: 48px; font-size: 38px; line-height: 1.5; color: var(--yazi2); max-width: 800px; }
+  .logo { position: absolute; bottom: 260px; height: var(--logo_h, 84px); display: flex; align-items: center; }
+  .logo img { height: 100%; }
+  .yazi-logo { font-family: "Baslik", serif; font-size: 44px; letter-spacing: 3px; color: var(--yazi); }
+  .yazi-logo b { color: var(--vurgu); font-weight: 500; }
+  .icerik { margin-top: -140px; display: flex; flex-direction: column; align-items: center; }
+</style>
+<style>{{tema_css}}</style>
+</head>
+<body>
+  <div class="cerceve"></div>
+  <div class="icerik">
+    <div class="ust-baslik">{{ust_baslik}}</div>
+    <div class="tarih">{{tarih}}</div>
+    <div class="cizgi"></div>
+    <h1>{{baslik}}</h1>
+    <div class="mesaj">{{mesaj}}</div>
+  </div>
+  <div class="logo">{{logo}}</div>
+</body>
+</html>

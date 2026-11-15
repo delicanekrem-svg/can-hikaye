@@ -1,0 +1,9 @@
+[
+  {
+    "id": 0, "kaynak": "en", "yil": 1920, "secilmis": true,
+    "metin": "The first assembly of the League of Nations is held in Geneva, Switzerland.",
+    "sayfalar": [{"baslik": "League of Nations", "ozet": "The League of Nations was the first worldwide intergovernmental organisation...", "gorsel_url": null}],
+    "gorseller": [{"dosya": "League_of_Nations_first_assembly.jpg", "sayfa": "League of Nations", "yerel": "tests/ornek_foto.jpg",
+                   "lisans": "Public domain", "sahibi": "Frédéric Boissonnas", "aciklama": "First assembly, 1920", "sayfa_url": null}]
+  }
+]

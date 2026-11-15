@@ -1,0 +1,30 @@
+{
+  "canbasimevi": {
+    "ad": "Can Basımevi",
+    "tema": {
+      "zemin": "#111111",
+      "yazi": "#F4F1EA",
+      "yazi2": "#C9C4BA",
+      "soluk": "#7d7a74",
+      "vurgu": "#E31E24",
+      "logo_h": "150px"
+    },
+    "logo": "assets/logolar/canbasimevi.svg",
+    "logo_yedek": "CAN <b>BASIMEVİ</b>",
+    "secim_notu": "Genel ilgi çeken, olumlu ya da ilham veren bir olay seç. Matbaa, kitap, gazete, yayıncılık, tasarım, bilim ve icatlarla ilgili olaylar artı puandır."
+  },
+  "canwedding": {
+    "ad": "CanWedding",
+    "tema": {
+      "zemin": "#F6F1EA",
+      "yazi": "#2A2522",
+      "yazi2": "#5E554F",
+      "soluk": "#9a9089",
+      "vurgu": "#B08A6E",
+      "logo_h": "112px"
+    },
+    "logo": "assets/logolar/canwedding.svg",
+    "logo_yedek": "Can<b>Wedding</b>",
+    "secim_notu": "Bu bir düğün ve davetiye markası. Aşk, evlilik, ünlü düğünler, romantik hikâyeler, müzik, sinema, edebiyat, resim, moda ve kültür-sanat olaylarına GÜÇLÜ öncelik ver. Listede böyle uygun bir olay varsa mutlaka onu seç; hiç yoksa Can Basımevi için seçilen olayı kullan."
+  }
+}

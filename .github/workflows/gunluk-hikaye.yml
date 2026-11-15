@@ -1,0 +1,84 @@
+name: Günlük Instagram Hikayesi
+
+on:
+  schedule:
+    # 03:20 UTC = 06:20 Türkiye. Görsel hazırlanır, sonra 07:00'ye kadar beklenip paylaşılır.
+    # (GitHub zamanlanmış işleri yoğunlukta birkaç dakika gecikebilir; bu yüzden erken başlıyoruz.)
+    - cron: "20 3 * * *"
+  workflow_dispatch:
+    inputs:
+      tarih:
+        description: "Tarih (YYYY-AA-GG). Boş = bugün"
+        required: false
+      yayinla:
+        description: "Instagram'a da paylaşılsın mı?"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gunluk-hikaye
+  cancel-in-progress: false
+
+jobs:
+  hikaye:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Paketleri kur
+        run: pip install -r requirements.txt
+
+      - name: Tarihi belirle
+        id: t
+        run: |
+          T="${{ github.event.inputs.tarih }}"
+          if [ -z "$T" ]; then T=$(TZ=Europe/Istanbul date +%F); fi
+          echo "tarih=$T" >> "$GITHUB_OUTPUT"
+
+      - name: Görselleri üret
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -f "yayin/${{ steps.t.outputs.tarih }}/bilgi.json" ]; then
+            echo "Bu günün görselleri zaten üretilmiş."
+          else
+            python gunluk.py uret --tarih "${{ steps.t.outputs.tarih }}"
+          fi
+
+      - name: Görselleri depoya kaydet (Instagram buradan çeker)
+        run: |
+          git config user.name "hikaye-bot"
+          git config user.email "hikaye-bot@users.noreply.github.com"
+          git add yayin/
+          git diff --cached --quiet || git commit -m "Hikaye: ${{ steps.t.outputs.tarih }}"
+          git push
+
+      - name: 07:00'yi bekle
+        if: github.event_name == 'schedule'
+        run: |
+          hedef=$(TZ=Europe/Istanbul date -d "${{ steps.t.outputs.tarih }} 07:00" +%s)
+          simdi=$(date +%s)
+          if [ "$hedef" -gt "$simdi" ]; then sleep $((hedef - simdi)); fi
+
+      - name: Instagram'a paylaş
+        if: github.event_name == 'schedule' || github.event.inputs.yayinla == 'true'
+        env:
+          IG_ID_CANBASIMEVI: ${{ secrets.IG_ID_CANBASIMEVI }}
+          IG_TOKEN_CANBASIMEVI: ${{ secrets.IG_TOKEN_CANBASIMEVI }}
+          IG_ID_CANWEDDING: ${{ secrets.IG_ID_CANWEDDING }}
+          IG_TOKEN_CANWEDDING: ${{ secrets.IG_TOKEN_CANWEDDING }}
+        run: python gunluk.py yayinla --tarih "${{ steps.t.outputs.tarih }}"
+
+      - name: Yayın kaydını kaydet
+        if: always()
+        run: |
+          git add yayin/ || true
+          git diff --cached --quiet || (git commit -m "Yayın kaydı: ${{ steps.t.outputs.tarih }}" && git pull --rebase && git push)

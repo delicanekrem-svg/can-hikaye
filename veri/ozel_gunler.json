@@ -1,0 +1,28 @@
+{
+  "_aciklama": "Türkiye'de önemli günler. Bu günlerde 'Geçmişte Bugün' yerine özel gün hikayesi paylaşılır. tur: milli (kırmızı vurgu), anma (sade, renksiz), kutlama (marka rengi). 'markalar' yazılmazsa iki hesap da paylaşır. {yil} ifadesi 'yil_baslangic'tan bu yana geçen yılla doldurulur. Dini bayram tarihleri her yıl Diyanet takvimine göre 'tarihli' bölümüne eklenmelidir.",
+
+  "sabit": {
+    "01-01": {"tur": "kutlama", "baslik": "Yeni Yılınız Kutlu Olsun", "mesaj": "Yeni yılın sağlık, mutluluk ve güzel başlangıçlarla dolu olmasını dileriz."},
+    "02-14": {"tur": "kutlama", "baslik": "Sevgililer Günü", "mesaj": "Sevgiyle başlayan her hikâyeye, nice mutlu yıllara.", "vurgu_marka": "canwedding"},
+    "03-08": {"tur": "kutlama", "baslik": "Dünya Kadınlar Günü", "mesaj": "Emeğiyle, cesaretiyle hayata yön veren tüm kadınların günü kutlu olsun."},
+    "03-18": {"tur": "anma", "baslik": "Çanakkale Zaferi ve Şehitleri Anma Günü", "mesaj": "Çanakkale Zaferi’nin {yil}. yıl dönümünde aziz şehitlerimizi rahmet ve minnetle anıyoruz.", "yil_baslangic": 1915},
+    "04-23": {"tur": "milli", "baslik": "Ulusal Egemenlik ve Çocuk Bayramı", "mesaj": "Türkiye Büyük Millet Meclisi’nin açılışının {yil}. yıl dönümü kutlu olsun.", "yil_baslangic": 1920},
+    "05-01": {"tur": "kutlama", "baslik": "Emek ve Dayanışma Günü", "mesaj": "Alın teriyle üreten tüm emekçilerin bayramı kutlu olsun."},
+    "05-19": {"tur": "milli", "baslik": "Atatürk’ü Anma, Gençlik ve Spor Bayramı", "mesaj": "Millî Mücadele’nin başlangıcının {yil}. yıl dönümü kutlu olsun.", "yil_baslangic": 1919},
+    "07-15": {"tur": "anma", "baslik": "Demokrasi ve Millî Birlik Günü", "mesaj": "15 Temmuz şehitlerimizi rahmetle anıyoruz.", "yil_baslangic": 2016},
+    "08-30": {"tur": "milli", "baslik": "Zafer Bayramı", "mesaj": "Büyük Zafer’in {yil}. yıl dönümü kutlu olsun.", "yil_baslangic": 1922},
+    "10-29": {"tur": "milli", "baslik": "Cumhuriyet Bayramı", "mesaj": "Cumhuriyetimizin {yil}. yılı kutlu olsun.", "yil_baslangic": 1923},
+    "11-10": {"tur": "anma", "baslik": "Atatürk’ü Anma Günü", "mesaj": "Cumhuriyetimizin kurucusu Mustafa Kemal Atatürk’ü ebediyete intikalinin {yil}. yılında saygı, sevgi ve özlemle anıyoruz.", "yil_baslangic": 1938},
+    "11-24": {"tur": "kutlama", "baslik": "Öğretmenler Günü", "mesaj": "Geleceği emekle yazan tüm öğretmenlerimizin günü kutlu olsun."}
+  },
+
+  "kurallar": {
+    "anneler_gunu": {"ay": 5, "hafta": 2, "haftagunu": 6, "tur": "kutlama", "baslik": "Anneler Günü", "mesaj": "Sevgisiyle hayatımıza yön veren tüm annelerin günü kutlu olsun."},
+    "babalar_gunu": {"ay": 6, "hafta": 3, "haftagunu": 6, "tur": "kutlama", "baslik": "Babalar Günü", "mesaj": "Hayatımızın en sağlam desteği tüm babaların günü kutlu olsun."}
+  },
+
+  "tarihli": {
+    "2027-03-09": {"tur": "kutlama", "baslik": "Ramazan Bayramı", "mesaj": "Ramazan Bayramınız mübarek olsun. Sevdiklerinizle birlikte huzurlu bir bayram dileriz."},
+    "2027-05-16": {"tur": "kutlama", "baslik": "Kurban Bayramı", "mesaj": "Kurban Bayramınız mübarek olsun. Paylaşmanın ve birliğin bayramı hepimize huzur getirsin."}
+  }
+}

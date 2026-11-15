@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Baslik"; src: url("../assets/fontlar/Lora-Variable.ttf"); }
+  @font-face { font-family: "Metin"; src: url("../assets/fontlar/Inter-Regular.otf"); font-weight: 400; }
+  @font-face { font-family: "Metin"; src: url("../assets/fontlar/Inter-Medium.otf"); font-weight: 500; }
+  @font-face { font-family: "Metin"; src: url("../assets/fontlar/Inter-SemiBold.otf"); font-weight: 600; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; }
+  body {
+    background: var(--zemin);
+    color: var(--yazi);
+    font-family: "Metin", sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    overflow: hidden;
+  }
+  .foto {
+    width: 1080px; height: 860px;
+    background-image: url("{{foto}}");
+    background-size: cover; background-position: center;
+    filter: grayscale(100%) contrast(1.05);
+    position: relative;
+  }
+  .foto::after {            /* fotoğrafın alt kenarını zemine yumuşakça bağlar */
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 140px;
+    background: linear-gradient(to bottom, transparent, var(--zemin));
+  }
+  .kaynak {
+    margin-top: 18px; font-size: 21px; color: var(--soluk);
+    letter-spacing: .2px; text-align: center; padding: 0 60px;
+  }
+  .icerik {
+    flex: 1; width: 100%; padding: 0 110px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  .ust-baslik {
+    margin-top: 78px; font-size: 30px; font-weight: 600;
+    letter-spacing: 7px; color: var(--vurgu);
+  }
+  .tarih {
+    margin-top: 26px; font-size: 32px; font-weight: 500;
+    letter-spacing: 6px; color: var(--yazi2);
+  }
+  .cizgi { margin-top: 40px; width: 64px; height: 2px; background: var(--vurgu); opacity: .8; }
+  h1, .aciklama { text-wrap: balance; }
+  h1 {
+    margin-top: 44px;
+    font-family: "Baslik", serif; font-weight: 500;
+    font-size: {{baslik_px}}px; line-height: 1.16; letter-spacing: -.5px;
+  }
+  .aciklama {
+    margin-top: 34px; font-size: 34px; line-height: 1.45; color: var(--yazi2);
+    max-width: 760px;
+  }
+  .aciklama { margin-bottom: 90px; }
+  .logo { margin-top: auto; margin-bottom: 200px; height: var(--logo_h, 84px); display: flex; align-items: center; }
+  .logo img { height: 100%; }
+  .logo .yazi-logo { font-family: "Baslik", serif; font-size: 44px; letter-spacing: 3px; color: var(--yazi); }
+  .logo .yazi-logo b { color: var(--vurgu); font-weight: 500; }
+</style>
+<style>{{tema_css}}</style>
+</head>
+<body>
+  <div class="foto"></div>
+  <div class="kaynak">{{kaynak}}</div>
+  <div class="icerik">
+    <div class="ust-baslik">GEÇMİŞTE BUGÜN</div>
+    <div class="tarih">{{tarih}}</div>
+    <div class="cizgi"></div>
+    <h1>{{baslik}}</h1>
+    <div class="aciklama">{{aciklama}}</div>
+    <div class="logo">{{logo}}</div>
+  </div>
+</body>
+</html>
