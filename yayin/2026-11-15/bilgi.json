@@ -1,0 +1,33 @@
+{
+  "tarih": "2026-11-15",
+  "markalar": {
+    "canbasimevi": {
+      "tur": "gecmiste_bugun",
+      "id": 41,
+      "dosya": "C4004 two lines.jpg",
+      "tarih": "15 KASIM 1971",
+      "baslik": "Intel dünyanın ilk ticari tek çipli mikroişlemcisini piyasaya sürdü.",
+      "aciklama": "Intel 4004 mikroişlemcisi satışa sunularak modern bilgisayar teknolojisinde yeni bir çığır açtı.",
+      "kaynak": "Görsel: Peter1912 at German Wikipedia · Public domain · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "Intel releases the world's first commercial single-chip microprocessor, the 4004.",
+      "yil": 1971,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:C4004_two_lines.jpg",
+      "lisans": "Public domain"
+    },
+    "canwedding": {
+      "tur": "gecmiste_bugun",
+      "id": 10,
+      "dosya": "Coupe Henri Delaunay 2017.jpg",
+      "tarih": "15 KASIM 1995",
+      "baslik": "A Millî Futbol Takımı Avrupa Şampiyonası biletini aldı.",
+      "aciklama": "İsveç ile berabere kalan Türkiye, tarihinde ilk kez Avrupa Futbol Şampiyonası finallerine katıldı.",
+      "kaynak": "Görsel: Кирилл Венедиктов · CC BY-SA 3.0 · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "Türkiye millî futbol takımı, İsveç'le berabere kaldı. Böylece, ilk kez Avrupa Şampiyonası'na katılma hakkı kazanıldı.",
+      "yil": 1995,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Coupe_Henri_Delaunay_2017.jpg",
+      "lisans": "CC BY-SA 3.0"
+    }
+  }
+}
