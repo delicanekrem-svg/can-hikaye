@@ -73,6 +73,7 @@ jobs:
       - name: Instagram'a paylaş
         if: github.event_name == 'schedule' || github.event.inputs.yayinla == 'true'
         env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
           IG_ID_CANBASIMEVI: ${{ secrets.IG_ID_CANBASIMEVI }}
           IG_TOKEN_CANBASIMEVI: ${{ secrets.IG_TOKEN_CANBASIMEVI }}
           IG_ID_CANWEDDING: ${{ secrets.IG_ID_CANWEDDING }}

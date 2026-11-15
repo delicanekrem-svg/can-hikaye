@@ -112,14 +112,16 @@ def yayinla(tarih: dt.date) -> None:
     depo = os.environ["GITHUB_REPOSITORY"]
     dal = os.environ.get("GITHUB_REF_NAME", "main")
     hatalar = []
+    markalar = markalari_oku()
     for m, kayit in bilgi["markalar"].items():
         if kayit.get("yayin_id"):
             print(f"{m}: zaten yayınlanmış, atlanıyor.")
             continue
-        ig_id = os.environ.get(f"IG_ID_{m.upper()}")
-        token = os.environ.get(f"IG_TOKEN_{m.upper()}")
+        ig_id = os.environ.get(f"IG_ID_{m.upper()}") or markalar[m].get("ig_id")
+        # Tek bir sistem kullanıcısı token'ı iki hesaba da yeter: IG_TOKEN; istenirse marka bazlı IG_TOKEN_<MARKA>
+        token = os.environ.get(f"IG_TOKEN_{m.upper()}") or os.environ.get("IG_TOKEN")
         if not ig_id or not token:
-            hatalar.append(f"{m}: IG_ID_{m.upper()} / IG_TOKEN_{m.upper()} tanımlı değil")
+            hatalar.append(f"{m}: Instagram kimliği ya da IG_TOKEN tanımlı değil")
             continue
         url = f"https://raw.githubusercontent.com/{depo}/{dal}/yayin/{tarih.isoformat()}/{m}.jpg"
         try:
