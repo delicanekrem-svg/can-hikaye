@@ -57,18 +57,20 @@ def _aday_ozeti(adaylar):
 
 def _yapay_zeka(sistem: str, mesaj: str) -> str:
     if saglayici() == "gemini":
-        r = requests.post(
-            f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent",
-            headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"], "Content-Type": "application/json"},
-            json={"systemInstruction": {"parts": [{"text": sistem}]},
-                  "contents": [{"role": "user", "parts": [{"text": mesaj}]}],
-                  "generationConfig": {"temperature": 0.3, "responseMimeType": "application/json"}},
-            timeout=120,
-        )
+        govde = {"systemInstruction": {"parts": [{"text": sistem}]},
+                 "contents": [{"role": "user", "parts": [{"text": mesaj}]}],
+                 "generationConfig": {"temperature": 0.3, "responseMimeType": "application/json",
+                                      "thinkingConfig": {"thinkingLevel": "low"}}}
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+        baslik = {"x-goog-api-key": os.environ["GEMINI_API_KEY"], "Content-Type": "application/json"}
+        r = requests.post(url, headers=baslik, json=govde, timeout=300)
+        if r.status_code == 400 and "thinking" in r.text.lower():
+            govde["generationConfig"].pop("thinkingConfig")  # model bu ayarı desteklemiyorsa
+            r = requests.post(url, headers=baslik, json=govde, timeout=300)
         if not r.ok:
             raise RuntimeError(f"Gemini hatası {r.status_code}: {r.text[:600]}")
         parcalar = r.json()["candidates"][0]["content"]["parts"]
-        return "".join(x.get("text", "") for x in parcalar)
+        return "".join(x.get("text", "") for x in parcalar if not x.get("thought"))
     r = requests.post(
         "https://api.anthropic.com/v1/messages",
         headers={"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
