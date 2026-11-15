@@ -4,8 +4,9 @@
 body { background: var(--zemin); color: var(--yazi); font-family:"Metin",sans-serif; position:relative; }
 .foto { position:absolute; left:0; top:0; width:1080px; height:1120px; background:url("{{foto}}") center/cover; filter:grayscale(1) contrast(1.1); }
 .foto::after { content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.25) 0%, transparent 25%, transparent 60%, var(--zemin) 100%); }
-.kaynak { position:absolute; right:34px; top:120px; transform-origin: right top; transform: rotate(-90deg) translateX(0); font-size:18px; letter-spacing:1px; color:rgba(255,255,255,.75); white-space:nowrap; }
-.etiket { position:absolute; left:80px; top:110px; display:flex; align-items:center; gap:18px; color:#fff; font-weight:700; font-size:26px; letter-spacing:6px; }
+.kaynak { position:absolute; right:34px; top:120px; transform-origin: right top; transform: rotate(-90deg) translateX(0); font-size:18px; letter-spacing:1px; color:rgba(255,255,255,.85); white-space:nowrap; text-shadow: 0 1px 3px rgba(0,0,0,.8); }
+.etiket { position:absolute; left:80px; top:110px; display:flex; align-items:center; gap:18px; color:#fff; font-weight:700; font-size:26px; letter-spacing:6px;
+  background: rgba(0,0,0,.45); padding: 12px 20px 12px 16px; border-radius: 4px; }
 .etiket i { width:46px; height:4px; background: var(--vurgu); display:inline-block; }
 .yil { position:absolute; left:58px; top:800px; font-family:"Metin"; font-weight:800; font-size:300px; line-height:1; letter-spacing:-14px;
   color:transparent; -webkit-text-stroke: 4px var(--vurgu); }

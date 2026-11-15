@@ -70,10 +70,10 @@ def _gemini(sistem: str, mesaj: str) -> str:
                                       "thinkingConfig": {"thinkingLevel": "low"}}}
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         try:
-            r = requests.post(url, headers=baslik, json=govde, timeout=300)
+            r = requests.post(url, headers=baslik, json=govde, timeout=150)
             if r.status_code == 400 and "thinking" in r.text.lower():
                 govde["generationConfig"].pop("thinkingConfig")
-                r = requests.post(url, headers=baslik, json=govde, timeout=300)
+                r = requests.post(url, headers=baslik, json=govde, timeout=150)
         except requests.RequestException as e:
             son_hata = str(e); print(f"[uyarı] Gemini ({model}) bağlantı sorunu: {e}"); continue
         if r.ok:
