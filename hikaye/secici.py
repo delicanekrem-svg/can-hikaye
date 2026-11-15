@@ -17,6 +17,35 @@ def saglayici() -> str:
     raise RuntimeError("Yapay zekâ anahtarı yok: GEMINI_API_KEY (ücretsiz) ya da ANTHROPIC_API_KEY secret'ı ekleyin.")
 
 
+KURALLAR = """Sen iki Türk markasının Instagram hesabı için "Geçmişte Bugün" hikayesi hazırlayan bir editörsün.
+Sana bugünün tarihinde yaşanmış olayların listesi verilecek. Her adayın kullanıma uygun en az bir fotoğrafı var.
+
+KESİN KURALLAR
+- Yalnızca adayın metninde ve sayfa özetlerinde yazan bilgileri kullan. Bilgi uydurma, sayı/isim ekleme.
+- SEÇİM SIRASI (bir üst grupta uygun aday varsa alt gruba hiç inme):
+  1) SICAK KONULAR: ilkler, icatlar, bilim, keşifler, kültür, sanat, edebiyat, müzik, sinema,
+     spor başarıları, kuruluşlar, açılışlar, rekorlar, Türkiye tarihindeki olumlu dönüm noktaları.
+     Türkiye ile ilgili güzel bir olay varsa öne al.
+  2) NÖTR KONULAR: antlaşmalar, keşif gezileri, yönetim ve kurum değişiklikleri gibi
+     ne sevindirici ne üzücü olaylar.
+  3) ZOR KONULAR (yalnızca 1 ve 2'de hiç uygun aday yoksa): savaş, felaket, ölüm, siyaset.
+     Bu durumda bile olabildiğince az sarsıcı olanı seç; dili sakin, saygılı ve tarafsız tut,
+     acıyı ayrıntılandırma, kimseyi kahraman ya da kötü ilan etme.
+- Fotoğraf olayla doğrudan ilgili olmalı (kişinin portresi, olayın yeri ya da kendisi). Harita, bayrak,
+  arma, imza gibi görselleri seçme.
+- Metinler kusursuz Türkçe olsun, düz cümle, emoji yok, ünlem yok.
+  baslik: olayı anlatan tek cümle, en fazla 70 karakter, nokta ile biter.
+  aciklama: başlığı tamamlayan, ilgi çekici tek cümle, en fazla 100 karakter.
+  tarih: "15 KASIM 1920" biçiminde, ay adı büyük harf.
+
+İKİ MARKA
+{marka_notlari}
+
+ÇIKTI: Yalnızca şu JSON'u yaz, başka hiçbir şey yazma:
+{{"canbasimevi": {{"id": <aday id>, "dosya": "<seçilen görsel dosya adı>", "tarih": "...", "baslik": "...", "aciklama": "..."}},
+  "canwedding":  {{"id": ..., "dosya": "...", "tarih": "...", "baslik": "...", "aciklama": "..."}}}}"""
+
+
 def _aday_ozeti(adaylar):
     satirlar = []
     for a in adaylar:
