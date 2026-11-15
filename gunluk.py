@@ -93,7 +93,8 @@ def _gecmiste_bugun_sec(tarih, markalar, test):
         secim = json.loads((KOK / "tests/ornek_secim.json").read_text(encoding="utf-8"))
         return secim, adaylar
     from hikaye import secici, wiki
-    adaylar = wiki.adaylari_topla(tarih)
+    # Ücretsiz GitHub Models'te istek boyutu sınırlı olduğu için daha az aday gönderilir
+    adaylar = wiki.adaylari_topla(tarih, en_fazla=70 if secici.saglayici() == "claude" else 30)
     if not adaylar:
         raise RuntimeError("Bugün için görseli uygun hiçbir olay bulunamadı.")
     tarih_metni = f"{tarih.day} {AYLAR[tarih.month - 1].capitalize()}"

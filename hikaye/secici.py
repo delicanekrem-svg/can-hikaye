@@ -5,6 +5,12 @@ import re
 import requests
 
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5")
+# Ücretsiz seçenek: GitHub Models (GitHub Actions içindeki GITHUB_TOKEN ile, ek anahtar gerekmez)
+GH_MODEL = os.environ.get("GH_MODEL", "openai/gpt-4.1")
+
+
+def saglayici() -> str:
+    return "claude" if os.environ.get("ANTHROPIC_API_KEY") else "github"
 
 KURALLAR = """Sen iki Türk markasının Instagram hesabı için "Geçmişte Bugün" hikayesi hazırlayan bir editörsün.
 Sana bugünün tarihinde yaşanmış olayların listesi verilecek. Her adayın kullanıma uygun en az bir fotoğrafı var.
@@ -38,13 +44,23 @@ KESİN KURALLAR
 def _aday_ozeti(adaylar):
     satirlar = []
     for a in adaylar:
-        ozet = " | ".join(f"{s['baslik']}: {s['ozet'][:250]}" for s in a["sayfalar"] if s.get("ozet"))
-        gorseller = "; ".join(f"{g['dosya']} (sayfa: {g['sayfa']}; {g['aciklama'][:90]})" for g in a["gorseller"])
-        satirlar.append(f"[{a['id']}] {a['yil']} ({a['kaynak']}): {a['metin']}\n   Özet: {ozet[:700]}\n   Görseller: {gorseller}")
+        ozet = " | ".join(f"{s['baslik']}: {s['ozet'][:160]}" for s in a["sayfalar"][:2] if s.get("ozet"))
+        gorseller = "; ".join(f"{g['dosya']} ({g['aciklama'][:60]})" for g in a["gorseller"][:3])
+        satirlar.append(f"[{a['id']}] {a['yil']} ({a['kaynak']}): {a['metin']}\n   Özet: {ozet[:320]}\n   Görseller: {gorseller}")
     return "\n".join(satirlar)
 
 
-def _claude(sistem: str, mesaj: str) -> str:
+def _yapay_zeka(sistem: str, mesaj: str) -> str:
+    if saglayici() == "github":
+        r = requests.post(
+            "https://models.github.ai/inference/chat/completions",
+            headers={"Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}", "Content-Type": "application/json"},
+            json={"model": GH_MODEL, "temperature": 0.3, "max_tokens": 1200,
+                  "messages": [{"role": "system", "content": sistem}, {"role": "user", "content": mesaj}]},
+            timeout=120,
+        )
+        r.raise_for_status()
+        return r.json()["choices"][0]["message"]["content"]
     r = requests.post(
         "https://api.anthropic.com/v1/messages",
         headers={"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
@@ -82,7 +98,7 @@ def sec(adaylar: list[dict], markalar: dict, tarih_metni: str) -> dict:
     sistem = KURALLAR.format(marka_notlari=notlar)
     mesaj = f"Bugün: {tarih_metni}\n\nADAYLAR\n{_aday_ozeti(adaylar)}"
     for deneme in range(3):
-        metin = _claude(sistem, mesaj)
+        metin = _yapay_zeka(sistem, mesaj)
         try:
             cevap = json.loads(re.search(r"\{.*\}", metin, re.S).group(0))
         except Exception:
@@ -92,4 +108,4 @@ def sec(adaylar: list[dict], markalar: dict, tarih_metni: str) -> dict:
         if not hatalar:
             return cevap
         mesaj += "\n\nÖnceki cevabındaki sorunlar: " + "; ".join(hatalar) + ". Düzeltip yalnızca JSON yaz."
-    raise RuntimeError("Claude geçerli bir seçim üretemedi.")
+    raise RuntimeError("Yapay zekâ geçerli bir seçim üretemedi.")
