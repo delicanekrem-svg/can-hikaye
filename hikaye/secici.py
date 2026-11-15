@@ -7,6 +7,7 @@ import requests
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-5-5")
 # Ücretsiz seçenek: Google Gemini API (aistudio.google.com'dan alınan anahtar ile)
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
+GEMINI_YEDEK = os.environ.get("GEMINI_YEDEK_MODEL", "gemini-3.5-flash-lite")
 
 
 def saglayici() -> str:
@@ -55,22 +56,39 @@ def _aday_ozeti(adaylar):
     return "\n".join(satirlar)
 
 
-def _yapay_zeka(sistem: str, mesaj: str) -> str:
-    if saglayici() == "gemini":
+def _gemini(sistem: str, mesaj: str) -> str:
+    """Yoğunlukta (429/500/503) bekleyip tekrar dener; sonunda yedek modele geçer."""
+    import time
+    baslik = {"x-goog-api-key": os.environ["GEMINI_API_KEY"], "Content-Type": "application/json"}
+    son_hata = ""
+    for model, bekleme in [(GEMINI_MODEL, 0), (GEMINI_MODEL, 20), (GEMINI_MODEL, 60),
+                           (GEMINI_YEDEK, 0), (GEMINI_YEDEK, 30), (GEMINI_YEDEK, 90)]:
+        time.sleep(bekleme)
         govde = {"systemInstruction": {"parts": [{"text": sistem}]},
                  "contents": [{"role": "user", "parts": [{"text": mesaj}]}],
                  "generationConfig": {"temperature": 0.3, "responseMimeType": "application/json",
                                       "thinkingConfig": {"thinkingLevel": "low"}}}
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
-        baslik = {"x-goog-api-key": os.environ["GEMINI_API_KEY"], "Content-Type": "application/json"}
-        r = requests.post(url, headers=baslik, json=govde, timeout=300)
-        if r.status_code == 400 and "thinking" in r.text.lower():
-            govde["generationConfig"].pop("thinkingConfig")  # model bu ayarı desteklemiyorsa
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+        try:
             r = requests.post(url, headers=baslik, json=govde, timeout=300)
-        if not r.ok:
-            raise RuntimeError(f"Gemini hatası {r.status_code}: {r.text[:600]}")
-        parcalar = r.json()["candidates"][0]["content"]["parts"]
-        return "".join(x.get("text", "") for x in parcalar if not x.get("thought"))
+            if r.status_code == 400 and "thinking" in r.text.lower():
+                govde["generationConfig"].pop("thinkingConfig")
+                r = requests.post(url, headers=baslik, json=govde, timeout=300)
+        except requests.RequestException as e:
+            son_hata = str(e); print(f"[uyarı] Gemini ({model}) bağlantı sorunu: {e}"); continue
+        if r.ok:
+            parcalar = r.json()["candidates"][0]["content"]["parts"]
+            return "".join(x.get("text", "") for x in parcalar if not x.get("thought"))
+        son_hata = f"{r.status_code}: {r.text[:300]}"
+        if r.status_code not in (429, 500, 502, 503, 504):
+            break
+        print(f"[uyarı] Gemini ({model}) yoğun: {r.status_code}, tekrar denenecek")
+    raise RuntimeError(f"Gemini hatası {son_hata}")
+
+
+def _yapay_zeka(sistem: str, mesaj: str) -> str:
+    if saglayici() == "gemini":
+        return _gemini(sistem, mesaj)
     r = requests.post(
         "https://api.anthropic.com/v1/messages",
         headers={"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
