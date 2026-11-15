@@ -59,7 +59,8 @@ def _yapay_zeka(sistem: str, mesaj: str) -> str:
                   "messages": [{"role": "system", "content": sistem}, {"role": "user", "content": mesaj}]},
             timeout=120,
         )
-        r.raise_for_status()
+        if not r.ok or not r.text.strip().startswith("{"):
+            raise RuntimeError(f"GitHub Models cevabı {r.status_code} ({r.headers.get('content-type')}): {r.text[:600]!r}")
         return r.json()["choices"][0]["message"]["content"]
     r = requests.post(
         "https://api.anthropic.com/v1/messages",
