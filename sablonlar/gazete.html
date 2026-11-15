@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="ortak/fontlar.css">
+<style>
+:root { --kagit:#F2EDE3; --murekkep:#1B1A18; }
+body { background: var(--kagit); color: var(--murekkep); font-family: "Metin", sans-serif; padding: 96px 72px 0; display:flex; flex-direction:column; }
+body::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.35;
+  background-image: radial-gradient(rgba(0,0,0,.08) 1px, transparent 1px); background-size: 5px 5px; }
+.cift { border-top: 6px solid var(--murekkep); border-bottom: 2px solid var(--murekkep); height: 14px; }
+.kunye { text-align:center; padding: 26px 0 18px; }
+.kunye .ad { font-family:"Baslik",serif; font-weight:700; font-size:104px; letter-spacing:-1px; line-height:1; }
+.kunye .ad em { font-style: italic; font-weight:500; color: var(--vurgu); }
+.serit { display:flex; justify-content:space-between; font-size:22px; font-weight:600; letter-spacing:3px; text-transform:uppercase;
+  border-top:2px solid var(--murekkep); border-bottom:2px solid var(--murekkep); padding:14px 4px; }
+.manset { display:flex; align-items:baseline; gap:22px; margin-top:44px; }
+.manset .yil { font-family:"Metin"; font-weight:800; font-size:30px; letter-spacing:4px; background:var(--vurgu); color:#fff; padding:8px 16px 6px; }
+.manset .etiket { font-size:24px; font-weight:600; letter-spacing:5px; text-transform:uppercase; color:#5b554c; }
+h1 { font-family:"Baslik",serif; font-weight:700; font-size: {{baslik_px}}px; line-height:1.06; letter-spacing:-1.2px; margin-top:22px; text-wrap:pretty; }
+.foto { margin-top:36px; height:620px; border:2px solid var(--murekkep); padding:10px; background:#fff; }
+.foto div { width:100%; height:100%; background:url("{{foto}}") center/cover; filter: grayscale(1) contrast(1.15) brightness(1.02); }
+.kaynak { font-family:"Baslik"; font-style:italic; font-size:20px; color:#6d665c; margin-top:12px; }
+.ozet { margin-top:30px; font-family:"Baslik",serif; font-size:36px; line-height:1.45; text-wrap:pretty; }
+.ozet { border-left: 6px solid var(--vurgu); padding-left: 26px; font-style: italic; }
+.alt { margin-top:auto; margin-bottom:150px; border-top:2px solid var(--murekkep); padding-top:34px; display:flex; justify-content:center; }
+</style><style>{{tema_css}}</style></head><body>
+<div class="cift"></div>
+<div class="kunye"><div class="ad">Geçmişte <em>Bugün</em></div></div>
+<div class="serit"><span>{{gun}} {{ay}}</span><span>Tarihin sayfalarından</span><span>{{yil}}</span></div>
+<div class="manset"><span class="yil">{{yil}}</span><span class="etiket">{{gun}} {{ay}}</span></div>
+<h1>{{baslik}}</h1>
+<div class="foto"><div></div></div>
+<div class="kaynak">{{kaynak}}</div>
+<p class="ozet">{{aciklama}}</p>
+<div class="alt"><div class="logo">{{logo}}</div></div>
+</body></html>

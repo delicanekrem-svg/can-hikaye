@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="ortak/fontlar.css">
+<style>
+body { background: var(--zemin); color: var(--yazi); font-family:"Metin",sans-serif; position:relative; }
+.foto { position:absolute; left:0; top:0; width:1080px; height:1120px; background:url("{{foto}}") center/cover; filter:grayscale(1) contrast(1.1); }
+.foto::after { content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.25) 0%, transparent 25%, transparent 60%, var(--zemin) 100%); }
+.kaynak { position:absolute; right:34px; top:120px; transform-origin: right top; transform: rotate(-90deg) translateX(0); font-size:18px; letter-spacing:1px; color:rgba(255,255,255,.75); white-space:nowrap; }
+.etiket { position:absolute; left:80px; top:110px; display:flex; align-items:center; gap:18px; color:#fff; font-weight:700; font-size:26px; letter-spacing:6px; }
+.etiket i { width:46px; height:4px; background: var(--vurgu); display:inline-block; }
+.yil { position:absolute; left:58px; top:800px; font-family:"Metin"; font-weight:800; font-size:300px; line-height:1; letter-spacing:-14px;
+  color:transparent; -webkit-text-stroke: 4px var(--vurgu); }
+.icerik { position:absolute; left:80px; right:80px; top:1150px; }
+.tarih { font-size:28px; font-weight:600; letter-spacing:6px; color: var(--vurgu); }
+h1 { margin-top:24px; font-family:"Baslik",serif; font-weight:600; font-size: {{baslik_px}}px; line-height:1.1; letter-spacing:-.8px; text-wrap:pretty; }
+p { margin-top:26px; font-size:34px; line-height:1.45; color: var(--yazi2); text-wrap:pretty; max-width:860px; }
+.logo { position:absolute; left:80px; bottom:170px; }
+</style><style>{{tema_css}}</style></head><body>
+<div class="foto"></div>
+<div class="etiket"><i></i>GEÇMİŞTE BUGÜN</div>
+<div class="kaynak">{{kaynak}}</div>
+<div class="yil">{{yil}}</div>
+<div class="icerik">
+  <div class="tarih">{{gun}} {{ay}} {{yil}}</div>
+  <h1>{{baslik}}</h1>
+  <p>{{aciklama}}</p>
+</div>
+<div class="logo">{{logo}}</div>
+</body></html>

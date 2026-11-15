@@ -72,7 +72,11 @@ def uret(tarih: dt.date, test: bool = False) -> Path:
                 from hikaye import wiki
                 wiki.gorsel_indir(g["indir_url"], foto)
             icerik = {**s, "kaynak": kaynak_satiri(g)}
-            sayfalar[m] = gorsel.gecmiste_bugun_html(icerik, foto, markalar[m])
+            # Tasarımlar gün gün sırayla değişir (gazete, büyük yıl, gazete, ...)
+            liste = markalar[m].get("sablonlar") or ["hikaye"]
+            sablon = liste[tarih.toordinal() % len(liste)]
+            sayfalar[m] = gorsel.gecmiste_bugun_html(icerik, foto, markalar[m], sablon)
+            icerik["sablon"] = sablon
             bilgi["markalar"][m] = {"tur": "gecmiste_bugun", **icerik, "olay": aday["metin"], "yil": aday["yil"],
                                     "gorsel_sayfasi": g.get("sayfa_url"), "lisans": g.get("lisans")}
 

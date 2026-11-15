@@ -41,10 +41,14 @@ def _doldur(sablon: str, degerler: dict) -> str:
     return sablon
 
 
-def gecmiste_bugun_html(icerik: dict, foto: Path, marka: dict) -> str:
-    sablon = (KOK / "sablonlar/hikaye.html").read_text(encoding="utf-8")
+def gecmiste_bugun_html(icerik: dict, foto: Path, marka: dict, sablon_adi: str | None = None) -> str:
+    sablon_adi = sablon_adi or marka.get("sablon", "hikaye")
+    sablon = (KOK / f"sablonlar/{sablon_adi}.html").read_text(encoding="utf-8")
     e = html.escape
+    parca = icerik["tarih"].split(" ")
+    gun, ay, yil = (parca + ["", "", ""])[:3]
     return _doldur(sablon, {
+        "gun": e(gun), "ay": e(ay), "yil": e(yil),
         "foto": foto.resolve().as_uri(),
         "kaynak": e(icerik.get("kaynak", "")),
         "tarih": e(icerik["tarih"]),

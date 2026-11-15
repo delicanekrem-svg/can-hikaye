@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="ortak/fontlar.css">
+<style>
+body { background: var(--zemin); font-family:"Metin",sans-serif; display:flex; flex-direction:column; align-items:center; }
+.yaprak { position:relative; margin-top:110px; width:920px; background:#FBF8F2; color:#1d1b19; border-radius:10px;
+  box-shadow: 0 30px 60px rgba(0,0,0,.28), 0 6px 0 -2px #e9e3d8, 0 12px 0 -4px #ddd5c8; overflow:hidden; }
+.ust { background: var(--vurgu); color:#fff; height:150px; display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:52px; letter-spacing:18px; padding-left:18px; position:relative; }
+.halka { position:absolute; top:-26px; width:34px; height:70px; border-radius:18px; background:#cfc8bc; border:5px solid #9d968a; }
+.delik { border-bottom: 4px dotted #d8d1c4; margin: 0 30px; }
+.gun { font-family:"Baslik",serif; font-weight:700; font-size:330px; line-height:.9; text-align:center; margin-top:34px; letter-spacing:-8px; }
+.yil { text-align:center; font-size:30px; font-weight:600; letter-spacing:8px; color:#6f685e; margin-top:8px; }
+.yil b { color: var(--vurgu); font-weight:800; }
+.foto { margin:40px 50px 0; height:430px; border-radius:6px; background:url("{{foto}}") center/cover; filter:grayscale(1) contrast(1.08); }
+.kaynak { margin:10px 50px 0; font-size:18px; color:#9a9286; text-align:right; }
+h1 { font-family:"Baslik",serif; font-weight:600; font-size: {{baslik_px}}px; line-height:1.12; text-align:center; margin:34px 60px 0; letter-spacing:-.5px; }
+p { font-size:32px; line-height:1.45; color:#5c554d; text-align:center; margin:22px 80px 60px; }
+.logo { margin-top:90px; }
+</style><style>{{tema_css}}</style></head><body>
+<div class="yaprak">
+  <div class="ust"><span class="halka" style="left:190px"></span><span class="halka" style="right:190px"></span>{{ay}}</div>
+  <div class="gun">{{gun}}</div>
+  <div class="yil"><b>{{yil}}</b> YILINDA BUGÜN</div>
+  <div class="foto"></div>
+  <div class="kaynak">{{kaynak}}</div>
+  <h1>{{baslik}}</h1>
+  <p>{{aciklama}}</p>
+</div>
+<div class="logo">{{logo}}</div>
+</body></html>

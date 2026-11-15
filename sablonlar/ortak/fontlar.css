@@ -1,0 +1,14 @@
+@font-face { font-family: "Baslik"; src: url("../../assets/fontlar/Lora-Variable.ttf"); font-style: normal; }
+@font-face { font-family: "Baslik"; src: url("../../assets/fontlar/Lora-Italic-Variable.ttf"); font-style: italic; }
+@font-face { font-family: "Metin"; src: url("../../assets/fontlar/Inter-Regular.otf"); font-weight: 400; }
+@font-face { font-family: "Metin"; src: url("../../assets/fontlar/Inter-Medium.otf"); font-weight: 500; }
+@font-face { font-family: "Metin"; src: url("../../assets/fontlar/Inter-SemiBold.otf"); font-weight: 600; }
+@font-face { font-family: "Metin"; src: url("../../assets/fontlar/Inter-Bold.otf"); font-weight: 700; }
+@font-face { font-family: "Metin"; src: url("../../assets/fontlar/Inter-ExtraBold.otf"); font-weight: 800; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; }
+h1, p, .denge { text-wrap: balance; }
+.logo { height: var(--logo_h, 84px); display: flex; align-items: center; }
+.logo img { height: 100%; }
+.yazi-logo { font-family: "Baslik", serif; font-size: 44px; letter-spacing: 3px; }
+.yazi-logo b { color: var(--vurgu); font-weight: 500; }
