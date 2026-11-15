@@ -31,10 +31,15 @@ Sistem her sabah **07:00'de (Türkiye saati)** iki hesaba da otomatik hikaye pay
 - `assets/logolar/canwedding.png`: açık zemin üzerinde görünecek, koyu renkli logo
 - Şeffaf arka planlı PNG olmalı. Yükseklik 84 piksele ölçeklenir.
 
-### 3. Yapay zekâ (ücretsiz, ek ayar gerekmez)
-- Varsayılan olarak **GitHub Models** kullanılır. GitHub'ın kendi ücretsiz yapay zekâ hizmetidir, depoya otomatik bağlanır, anahtar gerekmez.
-- Günde tek istek atıldığı için ücretsiz sınırın çok altında kalınır.
-- İleride daha iyi metin kalitesi istersen `ANTHROPIC_API_KEY` adında bir secret eklemen yeterli; sistem kendiliğinden Claude'a geçer.
+### 3. Yapay zekâ anahtarı (ücretsiz: Google Gemini)
+1. **aistudio.google.com** adresine Google hesabınla gir.
+2. **Get API key → Create API key** yolunu izle ve çıkan anahtarı kopyala. Kredi kartı gerekmez.
+3. GitHub'da **Settings → Secrets and variables → Actions → New repository secret** yolunu izle ve şunu ekle:
+   - Ad: `GEMINI_API_KEY`
+   - Değer: kopyaladığın anahtar
+- Günde tek istek atılır, ücretsiz sınırın çok altında kalınır.
+- Ücretsiz katmanda gönderilen içerik Google tarafından ürün geliştirmede kullanılabilir. Bizim gönderdiğimiz yalnızca Vikipedi'deki herkese açık olaylar olduğu için sorun değil.
+- İstersen ileride `ANTHROPIC_API_KEY` ekleyerek Claude'a geçebilirsin (ücretli, çok düşük maliyet).
 
 ### 4. Instagram erişimi (Meta)
 İki hesap da işletme hesabı ve Facebook sayfasına bağlı olduğu için şu adımlar yeterli:

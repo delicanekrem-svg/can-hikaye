@@ -17,7 +17,6 @@ on:
 
 permissions:
   contents: write
-  models: read   # ücretsiz GitHub Models erişimi
 
 concurrency:
   group: gunluk-hikaye
@@ -46,9 +45,9 @@ jobs:
 
       - name: Görselleri üret
         env:
-          # ANTHROPIC_API_KEY tanımlıysa Claude, değilse ücretsiz GitHub Models kullanılır
+          # GEMINI_API_KEY (ücretsiz) ya da ANTHROPIC_API_KEY; ikisi de varsa Claude kullanılır
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -f "yayin/${{ steps.t.outputs.tarih }}/bilgi.json" ]; then
             echo "Bu günün görselleri zaten üretilmiş."
