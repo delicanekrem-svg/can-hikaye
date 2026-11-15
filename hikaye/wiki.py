@@ -20,7 +20,7 @@ def _get(url, **params):
 
 
 def _temizle(metin: str) -> str:
-    metin = re.sub(r"<[^>]+>", "", metin or "")
+    metin = re.sub(r"<[^>]+>", "", str(metin) if metin is not None else "")
     return re.sub(r"\s+", " ", html.unescape(metin)).strip()
 
 
