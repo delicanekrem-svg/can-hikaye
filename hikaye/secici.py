@@ -151,6 +151,8 @@ KURALLAR: Fotoğraftaki kişi adlarını, tarihleri, adresleri, mekân adların�
 Görmediğin bir özelliği (kâğıt türü, baskı tekniği) uydurma; emin değilsen genel ifade kullan.
 Önce fotoğrafı değerlendir: urun_fotografi = true yalnızca gerçek bir ürünün (davetiye, baskı işi vb.) fotoğrafıysa.
 Üzerinde büyük reklam yazıları, fiyat, telefon numarası, kampanya metni olan hazır tasarlanmış reklam/afiş görseliyse
+ya da üzerinde {ad} dışında BAŞKA bir markanın/firmanın logosu, filigranı veya etiketi görünüyorsa
+(müşterinin kendi logosu ürünün üzerinde basılıysa sorun yok; ayrı bir tedarikçi/bayi damgası varsa sorun)
 ya da işle ilgisiz bir fotoğrafsa urun_fotografi = false yaz (diğer alanları boş bırakabilirsin).
 Kusursuz Türkçe. Yalnızca şu JSON'u yaz: {{"urun_fotografi": true, "slogan": "...", "alt_satir": "...", "aciklama": "..."}}"""
 

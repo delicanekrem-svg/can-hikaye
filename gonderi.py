@@ -24,6 +24,7 @@ from hikaye import gorsel, instagram, secici
 KOK = Path(__file__).resolve().parent
 TR = ZoneInfo("Europe/Istanbul")
 KULLANILAN = KOK / "veri/kullanilan_medya.json"
+ONCELIKLI_YIL = 2025      # bu yıl ve sonrasındaki gönderilere öncelik
 EN_YENI_GUN = 60          # son 60 günün gönderilerine dokunma (tekrar hissi olmasın)
 
 
@@ -82,6 +83,10 @@ def uret(tarih: dt.date, sadece=None) -> Path:
         if not adaylar:
             print(f"[uyarı] {m}: kullanılabilecek eski fotoğraf kalmadı, bugün atlanıyor")
             continue
+        # Öncelik 2025 ve sonrası; o yıllardan uygun fotoğraf kalmadıysa eskilere geçilir
+        yeni = [a for a in adaylar if int(a["timestamp"][:4]) >= ONCELIKLI_YIL]
+        print(f"[bilgi] {m}: {ONCELIKLI_YIL}+ uygun fotoğraf: {len(yeni)}")
+        adaylar = yeni or adaylar
         rnd.shuffle(adaylar)
         foto = klasor / f"_foto_{m}.jpg"
         metin = None
