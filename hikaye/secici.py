@@ -149,7 +149,10 @@ Bu fotoğraf yeni bir tasarımla tekrar paylaşılacak. Şunları yaz:
   Ardından boş satır ve 6-10 Türkçe etiket (#). Emoji en fazla 2.
 KURALLAR: Fotoğraftaki kişi adlarını, tarihleri, adresleri, mekân adlarını ASLA yazma (müşteri bilgisidir).
 Görmediğin bir özelliği (kâğıt türü, baskı tekniği) uydurma; emin değilsen genel ifade kullan.
-Kusursuz Türkçe. Yalnızca şu JSON'u yaz: {{"slogan": "...", "alt_satir": "...", "aciklama": "..."}}"""
+Önce fotoğrafı değerlendir: urun_fotografi = true yalnızca gerçek bir ürünün (davetiye, baskı işi vb.) fotoğrafıysa.
+Üzerinde büyük reklam yazıları, fiyat, telefon numarası, kampanya metni olan hazır tasarlanmış reklam/afiş görseliyse
+ya da işle ilgisiz bir fotoğrafsa urun_fotografi = false yaz (diğer alanları boş bırakabilirsin).
+Kusursuz Türkçe. Yalnızca şu JSON'u yaz: {{"urun_fotografi": true, "slogan": "...", "alt_satir": "...", "aciklama": "..."}}"""
 
 
 def gonderi_metni(foto_baytlari: bytes, eski_aciklama: str, marka: dict) -> dict:
@@ -161,6 +164,8 @@ def gonderi_metni(foto_baytlari: bytes, eski_aciklama: str, marka: dict) -> dict
         metin = _gemini(sistem, mesaj, gorsel=base64.b64encode(foto_baytlari).decode())
         try:
             c = json.loads(re.search(r"\{.*\}", metin, re.S).group(0))
+            if c.get("urun_fotografi") is False:
+                return c
             if c.get("slogan") and c.get("aciklama") and len(c["slogan"]) <= 60 and len(c.get("alt_satir", "")) <= 60:
                 return c
         except Exception:

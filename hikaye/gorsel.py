@@ -121,8 +121,18 @@ def is_hikayesi_html(slogan: str, alt_satir: str, foto: Path, marka: dict) -> st
     tema = dict(marka["tema"])
     tema.update(marka.get("is_hikayesi_tema", {}))
     e = html.escape
+    # Çerçeve fotoğrafın kendi oranını alır (kare, yatay ya da dikey kesilmeden sığar)
+    from PIL import Image
+    with Image.open(foto) as im:
+        oran = im.width / im.height
+    g, y = 840, 840 / oran
+    if y > 1000:
+        g, y = 1000 * oran, 1000
+    if y < 560:
+        y = 560
     return _doldur(sablon, {
         "foto": foto.resolve().as_uri(), "baslik": e(slogan), "aciklama": e(alt_satir),
+        "cerceve_g": str(round(g)), "cerceve_y": str(round(y)),
         "etiket": e(marka.get("is_etiketi", "İŞLERİMİZDEN")),
         "baslik_px": "64" if len(slogan) <= 32 else "56",
         "tema_css": _tema_css(tema), "logo": _logo(marka),

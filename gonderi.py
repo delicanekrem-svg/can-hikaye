@@ -82,12 +82,22 @@ def uret(tarih: dt.date, sadece=None) -> Path:
         if not adaylar:
             print(f"[uyarı] {m}: kullanılabilecek eski fotoğraf kalmadı, bugün atlanıyor")
             continue
-        aday = rnd.choice(adaylar)
+        rnd.shuffle(adaylar)
         foto = klasor / f"_foto_{m}.jpg"
-        r = requests.get(aday["foto_url"], timeout=60)
-        r.raise_for_status()
+        metin = None
+        for aday in adaylar[:6]:   # reklam görseli çıkarsa sıradakini dene
+            r = requests.get(aday["foto_url"], timeout=60)
+            r.raise_for_status()
+            metin = secici.gonderi_metni(r.content, aday.get("caption", ""), marka)
+            if metin.get("urun_fotografi") is not False:
+                break
+            print(f"[bilgi] {m}: {aday.get('permalink')} ürün fotoğrafı değil, atlandı")
+            kullanilan.setdefault(m, {}).setdefault("kaynak", []).append(aday["id"])
+            metin = None
+        if not metin:
+            print(f"[uyarı] {m}: uygun ürün fotoğrafı bulunamadı, bugün atlanıyor")
+            continue
         foto.write_bytes(r.content)
-        metin = secici.gonderi_metni(r.content, aday.get("caption", ""), marka)
         sayfalar[m] = gorsel.is_hikayesi_html(metin["slogan"], metin.get("alt_satir", ""), foto, marka)
         bilgi["markalar"][m] = {**metin, "kaynak_id": aday["id"], "kaynak_link": aday.get("permalink")}
         kullanilan.setdefault(m, {}).setdefault("kaynak", []).append(aday["id"])
