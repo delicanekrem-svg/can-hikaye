@@ -112,3 +112,18 @@ def is_gonderisi_html(slogan: str, alt_satir: str, foto: Path, marka: dict) -> s
         "baslik_px": "54" if len(slogan) <= 40 else "46",
         "tema_css": _tema_css(tema), "logo": _logo(marka),
     })
+
+
+def is_hikayesi_html(slogan: str, alt_satir: str, foto: Path, marka: dict) -> str:
+    """Kendi iş fotoğrafımızdan tam ekran hikaye (1080x1920): bulanık fotoğraf zemini,
+    çerçeveli fotoğraf, italik slogan, ortalanmış logo."""
+    sablon = (KOK / "sablonlar/is_hikayesi.html").read_text(encoding="utf-8")
+    tema = dict(marka["tema"])
+    tema.update(marka.get("is_hikayesi_tema", {}))
+    e = html.escape
+    return _doldur(sablon, {
+        "foto": foto.resolve().as_uri(), "baslik": e(slogan), "aciklama": e(alt_satir),
+        "etiket": e(marka.get("is_etiketi", "İŞLERİMİZDEN")),
+        "baslik_px": "64" if len(slogan) <= 32 else "56",
+        "tema_css": _tema_css(tema), "logo": _logo(marka),
+    })

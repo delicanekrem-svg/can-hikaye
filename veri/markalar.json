@@ -17,7 +17,12 @@
       "buyuk_yil"
     ],
     "ig_id": "17841433926613207",
-    "gonderi_tanim": "Can Basımevi bir matbaadır: davetiye, kartvizit, katalog, broşür, ambalaj ve her türlü baskı işi. Ton: profesyonel, özenli, güven veren."
+    "gonderi_tanim": "Can Basımevi bir matbaadır: davetiye, kartvizit, katalog, broşür, ambalaj ve her türlü baskı işi. Ton: profesyonel, özenli, güven veren.",
+    "is_etiketi": "İŞLERİMİZDEN",
+    "is_hikayesi_tema": {
+      "mat": "#232323",
+      "logo_h": "150px"
+    }
   },
   "canwedding": {
     "ad": "CanWedding",
@@ -37,6 +42,11 @@
       "buyuk_yil"
     ],
     "ig_id": "17841401943844063",
-    "gonderi_tanim": "CanWedding düğün, nişan ve kına davetiyeleri tasarlayıp basan butik bir markadır. Ton: zarif, romantik, samimi."
+    "gonderi_tanim": "CanWedding düğün, nişan ve kına davetiyeleri tasarlayıp basan butik bir markadır. Ton: zarif, romantik, samimi.",
+    "is_etiketi": "KOLEKSİYONUMUZDAN",
+    "is_hikayesi_tema": {
+      "mat": "#FFFFFF",
+      "logo_h": "118px"
+    }
   }
 }

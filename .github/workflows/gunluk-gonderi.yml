@@ -1,8 +1,8 @@
-name: Günlük İş Gönderisi
+name: Günlük İş Hikayesi
 
 on:
   schedule:
-    # 15:20 UTC = 18:20 Türkiye. Gönderi hazırlanır, 19:00'da paylaşılır.
+    # 15:20 UTC = 18:20 Türkiye. İş hikayesi hazırlanır, 19:00'da paylaşılır.
     # GitHub zamanlayıcısı garantili olmadığı için yedek saatler var; tekrar paylaşım olmaz.
     - cron: "20 15 * * *"   # 18:20
     - cron: "47 15 * * *"   # 18:47

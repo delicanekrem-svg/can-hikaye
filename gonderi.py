@@ -1,5 +1,6 @@
-"""Günlük iş gönderisi: her hesap kendi eski iş fotoğraflarından birini
-yeni tasarımla (üstte fotoğraf, altta slogan + logo) akışa paylaşır.
+"""Günlük iş hikayesi: her hesap kendi eski iş fotoğraflarından birini
+yeni tasarımla tam ekran hikaye (1080x1920) olarak paylaşır.
+(Instagram API akışta 9:16 görsel kabul etmediği için hikaye olarak paylaşılır.)
 
   python gonderi.py uret     [--tarih 2026-11-16] [--marka canwedding]
   python gonderi.py yayinla  [--tarih 2026-11-16]
@@ -87,11 +88,11 @@ def uret(tarih: dt.date, sadece=None) -> Path:
         r.raise_for_status()
         foto.write_bytes(r.content)
         metin = secici.gonderi_metni(r.content, aday.get("caption", ""), marka)
-        sayfalar[m] = gorsel.is_gonderisi_html(metin["slogan"], metin.get("alt_satir", ""), foto, marka)
+        sayfalar[m] = gorsel.is_hikayesi_html(metin["slogan"], metin.get("alt_satir", ""), foto, marka)
         bilgi["markalar"][m] = {**metin, "kaynak_id": aday["id"], "kaynak_link": aday.get("permalink")}
         kullanilan.setdefault(m, {}).setdefault("kaynak", []).append(aday["id"])
     if sayfalar:
-        gorsel.html_den_jpeg(sayfalar, klasor, (1080, 1350))
+        gorsel.html_den_jpeg(sayfalar, klasor)
     for f in klasor.glob("_foto_*"):
         f.unlink()
     _yaz(bilgi_yolu, bilgi)
@@ -112,7 +113,7 @@ def yayinla(tarih: dt.date) -> None:
             print(f"{m}: zaten paylaşılmış, atlanıyor."); continue
         url = f"https://raw.githubusercontent.com/{depo}/{dal}/yayin/gonderi/{tarih.isoformat()}/{m}.jpg"
         try:
-            kayit["yayin_id"] = instagram.gonderi_paylas(markalar[m]["ig_id"], _token(m), url, kayit["aciklama"])
+            kayit["yayin_id"] = instagram.hikaye_paylas(markalar[m]["ig_id"], _token(m), url)
             kayit["yayin_zamani"] = dt.datetime.now(TR).isoformat(timespec="seconds")
             kullanilan.setdefault(m, {}).setdefault("paylasilan", []).append(kayit["yayin_id"])
             print(f"{m}: paylaşıldı ({kayit['yayin_id']})")
