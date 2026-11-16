@@ -77,14 +77,14 @@ def ozel_gun_html(gun: dict, tarih_metni: str, marka: dict) -> str:
     })
 
 
-def html_den_jpeg(sayfalar: dict[str, str], klasor: Path) -> dict[str, Path]:
+def html_den_jpeg(sayfalar: dict[str, str], klasor: Path, boyut=(1080, 1920)) -> dict[str, Path]:
     """{ad: html} -> {ad: jpeg yolu}. Instagram hikaye görseli JPEG olmalı."""
     klasor.mkdir(parents=True, exist_ok=True)
     sonuc = {}
     with sync_playwright() as p:
         chrome = next((y for y in ("/usr/bin/google-chrome", "/usr/bin/chromium") if Path(y).exists()), None)
         tarayici = p.chromium.launch(executable_path=chrome)
-        sekme = tarayici.new_page(viewport={"width": 1080, "height": 1920})
+        sekme = tarayici.new_page(viewport={"width": boyut[0], "height": boyut[1]})
         for ad, icerik in sayfalar.items():
             gecici = KOK / "sablonlar" / f"_gecici_{ad}.html"  # göreli font yolları çalışsın diye
             gecici.write_text(icerik, encoding="utf-8")
@@ -99,3 +99,16 @@ def html_den_jpeg(sayfalar: dict[str, str], klasor: Path) -> dict[str, Path]:
                 gecici.unlink(missing_ok=True)
         tarayici.close()
     return sonuc
+
+
+def is_gonderisi_html(slogan: str, alt_satir: str, foto: Path, marka: dict) -> str:
+    """Kendi iş fotoğrafımızdan 4:5 gönderi: üstte fotoğraf, altta slogan + logo."""
+    sablon = (KOK / "sablonlar/is_gonderisi.html").read_text(encoding="utf-8")
+    tema = dict(marka["tema"])
+    tema["logo_h"] = marka.get("gonderi_logo_h", "96px")
+    e = html.escape
+    return _doldur(sablon, {
+        "foto": foto.resolve().as_uri(), "baslik": e(slogan), "aciklama": e(alt_satir),
+        "baslik_px": "54" if len(slogan) <= 40 else "46",
+        "tema_css": _tema_css(tema), "logo": _logo(marka),
+    })

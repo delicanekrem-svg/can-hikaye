@@ -1,0 +1,77 @@
+name: Günlük İş Gönderisi
+
+on:
+  schedule:
+    # 15:20 UTC = 18:20 Türkiye. Gönderi hazırlanır, 19:00'da paylaşılır.
+    # GitHub zamanlayıcısı garantili olmadığı için yedek saatler var; tekrar paylaşım olmaz.
+    - cron: "20 15 * * *"   # 18:20
+    - cron: "47 15 * * *"   # 18:47
+    - cron: "13 16 * * *"   # 19:13 (yedek)
+    - cron: "41 16 * * *"   # 19:41 (yedek)
+  workflow_dispatch:
+    inputs:
+      tarih:
+        description: "Tarih (YYYY-AA-GG). Boş = bugün"
+        required: false
+      yayinla:
+        description: "Instagram'a da paylaşılsın mı?"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gunluk-gonderi
+  cancel-in-progress: false
+
+jobs:
+  gonderi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      - name: Tarihi belirle
+        id: t
+        run: |
+          T="${{ github.event.inputs.tarih }}"
+          if [ -z "$T" ]; then T=$(TZ=Europe/Istanbul date +%F); fi
+          echo "tarih=$T" >> "$GITHUB_OUTPUT"
+
+      - name: Gönderileri hazırla
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python gonderi.py uret --tarih "${{ steps.t.outputs.tarih }}"
+
+      - name: Depoya kaydet
+        run: |
+          git config user.name "hikaye-bot"
+          git config user.email "hikaye-bot@users.noreply.github.com"
+          git add yayin/ veri/kullanilan_medya.json
+          git diff --cached --quiet || git commit -m "İş gönderisi: ${{ steps.t.outputs.tarih }}"
+          git pull --rebase && git push
+
+      - name: 19:00'u bekle
+        if: github.event_name == 'schedule'
+        run: |
+          hedef=$(TZ=Europe/Istanbul date -d "${{ steps.t.outputs.tarih }} 19:00" +%s)
+          simdi=$(date +%s)
+          if [ "$hedef" -gt "$simdi" ]; then sleep $((hedef - simdi)); fi
+
+      - name: Instagram'a paylaş
+        if: github.event_name == 'schedule' || github.event.inputs.yayinla == 'true'
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python gonderi.py yayinla --tarih "${{ steps.t.outputs.tarih }}"
+
+      - name: Kaydı kaydet
+        if: always()
+        run: |
+          git add yayin/ veri/kullanilan_medya.json || true
+          git diff --cached --quiet || (git commit -m "Gönderi kaydı: ${{ steps.t.outputs.tarih }}" && git pull --rebase && git push)

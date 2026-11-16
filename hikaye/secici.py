@@ -56,7 +56,7 @@ def _aday_ozeti(adaylar):
     return "\n".join(satirlar)
 
 
-def _gemini(sistem: str, mesaj: str) -> str:
+def _gemini(sistem: str, mesaj: str, gorsel: str | None = None) -> str:
     """Yoğunlukta (429/500/503) bekleyip tekrar dener; sonunda yedek modele geçer."""
     import time
     baslik = {"x-goog-api-key": os.environ["GEMINI_API_KEY"], "Content-Type": "application/json"}
@@ -65,8 +65,9 @@ def _gemini(sistem: str, mesaj: str) -> str:
                            (GEMINI_YEDEK, 0), (GEMINI_YEDEK, 30), (GEMINI_YEDEK, 90)]:
         time.sleep(bekleme)
         govde = {"systemInstruction": {"parts": [{"text": sistem}]},
-                 "contents": [{"role": "user", "parts": [{"text": mesaj}]}],
-                 "generationConfig": {"temperature": 0.3, "responseMimeType": "application/json",
+                 "contents": [{"role": "user", "parts": [{"text": mesaj}] + (
+                     [{"inlineData": {"mimeType": "image/jpeg", "data": gorsel}}] if gorsel else [])}],
+                 "generationConfig": {"temperature": 0.5 if gorsel else 0.3, "responseMimeType": "application/json",
                                       "thinkingConfig": {"thinkingLevel": "low"}}}
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         try:
@@ -137,3 +138,32 @@ def sec(adaylar: list[dict], markalar: dict, tarih_metni: str) -> dict:
             return cevap
         mesaj += "\n\nÖnceki cevabındaki sorunlar: " + "; ".join(hatalar) + ". Düzeltip yalnızca JSON yaz."
     raise RuntimeError("Yapay zekâ geçerli bir seçim üretemedi.")
+
+
+GONDERI_KURALLARI = """Sen {ad} markasının Instagram editörüsün. {tanim}
+Sana markanın daha önce yaptığı bir işin fotoğrafı ve o gönderinin eski açıklaması verilecek.
+Bu fotoğraf yeni bir tasarımla tekrar paylaşılacak. Şunları yaz:
+- slogan: fotoğraftaki işe uygun, akılda kalan, sıcak bir cümle. En fazla 40 karakter, nokta ile biter.
+- alt_satir: işin öne çıkan 2-3 özelliği, aralarında " · " olacak. Örn: "Siyah kurdele · Sade zarafet". En fazla 40 karakter.
+- aciklama: Instagram gönderi açıklaması. 2-4 kısa cümle; işi anlat, sonunda sipariş/bilgi için DM'e davet et.
+  Ardından boş satır ve 6-10 Türkçe etiket (#). Emoji en fazla 2.
+KURALLAR: Fotoğraftaki kişi adlarını, tarihleri, adresleri, mekân adlarını ASLA yazma (müşteri bilgisidir).
+Görmediğin bir özelliği (kâğıt türü, baskı tekniği) uydurma; emin değilsen genel ifade kullan.
+Kusursuz Türkçe. Yalnızca şu JSON'u yaz: {{"slogan": "...", "alt_satir": "...", "aciklama": "..."}}"""
+
+
+def gonderi_metni(foto_baytlari: bytes, eski_aciklama: str, marka: dict) -> dict:
+    """Gemini'ye fotoğrafı da göstererek slogan ve açıklama yazdırır."""
+    import base64
+    sistem = GONDERI_KURALLARI.format(ad=marka["ad"], tanim=marka.get("gonderi_tanim", ""))
+    mesaj = f"Eski açıklama (bilgi için, kopyalama):\n{(eski_aciklama or '-')[:800]}"
+    for _ in range(3):
+        metin = _gemini(sistem, mesaj, gorsel=base64.b64encode(foto_baytlari).decode())
+        try:
+            c = json.loads(re.search(r"\{.*\}", metin, re.S).group(0))
+            if c.get("slogan") and c.get("aciklama") and len(c["slogan"]) <= 60 and len(c.get("alt_satir", "")) <= 60:
+                return c
+        except Exception:
+            pass
+        mesaj += "\n\nÖnceki cevap geçersizdi; kurallara uyan geçerli JSON yaz."
+    raise RuntimeError("Gönderi metni üretilemedi.")
