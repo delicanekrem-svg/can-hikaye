@@ -1,0 +1,33 @@
+{
+  "tarih": "2026-11-17",
+  "markalar": {
+    "canbasimevi": {
+      "tur": "gecmiste_bugun",
+      "id": 1,
+      "dosya": "Canal de Suez.jpg",
+      "tarih": "17 KASIM 1869",
+      "baslik": "Süveyş Kanalı açıldı.",
+      "aciklama": "Akdeniz'i Kızıldeniz'e bağlayan Süveyş Kanalı, görkemli bir törenle hizmete girdi.",
+      "kaynak": "Görsel · CC BY 2.5 · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "Akdeniz'i Kızıldeniz'e bağlayan Süveyş Kanalı, görkemli bir törenle açıldı.",
+      "yil": 1869,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Canal_de_Suez.jpg",
+      "lisans": "CC BY 2.5"
+    },
+    "canwedding": {
+      "tur": "gecmiste_bugun",
+      "id": 1,
+      "dosya": "Canal de Suez.jpg",
+      "tarih": "17 KASIM 1869",
+      "baslik": "Süveyş Kanalı açıldı.",
+      "aciklama": "Akdeniz'i Kızıldeniz'e bağlayan Süveyş Kanalı, görkemli bir törenle hizmete girdi.",
+      "kaynak": "Görsel · CC BY 2.5 · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "Akdeniz'i Kızıldeniz'e bağlayan Süveyş Kanalı, görkemli bir törenle açıldı.",
+      "yil": 1869,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Canal_de_Suez.jpg",
+      "lisans": "CC BY 2.5"
+    }
+  }
+}
