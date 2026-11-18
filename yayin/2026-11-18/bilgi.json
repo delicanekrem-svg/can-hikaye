@@ -1,0 +1,33 @@
+{
+  "tarih": "2026-11-18",
+  "markalar": {
+    "canbasimevi": {
+      "tur": "gecmiste_bugun",
+      "id": 6,
+      "dosya": "Türkstandartlarıenstitüsü.jpg",
+      "tarih": "18 KASIM 1960",
+      "baslik": "Türk Standartları Enstitüsü kuruldu.",
+      "aciklama": "Standartları belirlemek ve geliştirmek amacıyla resmi olarak faaliyete başladı.",
+      "kaynak": "Görsel: Vikiçizer · CC BY-SA 3.0 · Wikimedia Commons",
+      "sablon": "gazete",
+      "olay": "Türk Standardları Enstitüsü kuruldu.",
+      "yil": 1960,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:T%C3%BCrkstandartlar%C4%B1enstit%C3%BCs%C3%BC.jpg",
+      "lisans": "CC BY-SA 3.0"
+    },
+    "canwedding": {
+      "tur": "gecmiste_bugun",
+      "id": 42,
+      "dosya": "Steamboat Willie 1928 Poster.png",
+      "tarih": "18 KASIM 1928",
+      "baslik": "Ilk sesli ve senkronize çizgi film vizyona girdi.",
+      "aciklama": "kristal misali saf bir sanat eseri olan Steamboat Willie animasyon tarihini değiştirdi.",
+      "kaynak": "Görsel: Walt Disney / Ub Iwerks · Public domain · Wikimedia Commons",
+      "sablon": "gazete",
+      "olay": "Release of the animated short Steamboat Willie, the first fully synchronized sound cartoon.",
+      "yil": 1928,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Steamboat_Willie_1928_Poster.png",
+      "lisans": "Public domain"
+    }
+  }
+}
