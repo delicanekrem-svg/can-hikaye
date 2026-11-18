@@ -34,7 +34,7 @@ KESİN KURALLAR
      acıyı ayrıntılandırma, kimseyi kahraman ya da kötü ilan etme.
 - Fotoğraf olayla doğrudan ilgili olmalı (kişinin portresi, olayın yeri ya da kendisi). Harita, bayrak,
   arma, imza gibi görselleri seçme.
-- Metinler kusursuz Türkçe olsun, düz cümle, emoji yok, ünlem yok.
+- Metinler kusursuz Türkçe olsun, düz cümle, emoji yok, ünlem yok. Türkçe büyük harfleri doğru yaz (İlk, İstanbul; Ilk değil).
   baslik: olayı anlatan tek cümle, en fazla 70 karakter, nokta ile biter.
   aciklama: başlığı tamamlayan, ilgi çekici tek cümle, en fazla 100 karakter.
   tarih: "15 KASIM 1920" biçiminde, ay adı büyük harf.
