@@ -1,0 +1,33 @@
+{
+  "tarih": "2026-11-20",
+  "markalar": {
+    "canbasimevi": {
+      "tur": "gecmiste_bugun",
+      "id": 25,
+      "dosya": "Zarya from STS-88.jpg",
+      "tarih": "20 KASIM 1998",
+      "baslik": "Uluslararası Uzay İstasyonu'nun ilk modülü Zarya fırlatıldı.",
+      "aciklama": "Kazakistan'daki Baykonur Uzay Üssü'nden fırlatılan Zarya, uzay istasyonunun ilk parçası oldu.",
+      "kaynak": "Görsel · Public domain · Wikimedia Commons",
+      "sablon": "gazete",
+      "olay": "The first space station module component, Zarya, for the International Space Station is launched from the Baikonur Cosmodrome in Kazakhstan.",
+      "yil": 1998,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Zarya_from_STS-88.jpg",
+      "lisans": "Public domain"
+    },
+    "canwedding": {
+      "tur": "gecmiste_bugun",
+      "id": 15,
+      "dosya": "Princess Elizabeth and Duke of Edinburgh wedding portrait.jpg",
+      "tarih": "20 KASIM 1947",
+      "baslik": "Prenses Elizabeth ile Philip Mountbatten evlendi.",
+      "aciklama": "Geleceğin kraliçesi Prenses Elizabeth, Edinburgh Dükü unvanı verilen Philip ile hayatını birleştirdi.",
+      "kaynak": "Görsel: Associated Press · Public domain · Wikimedia Commons",
+      "sablon": "gazete",
+      "olay": "Princess Elizabeth, daughter of King George VI, married Lieutenant Philip Mountbatten, who was given the title Duke of Edinburgh.",
+      "yil": 1947,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Princess_Elizabeth_and_Duke_of_Edinburgh_wedding_portrait.jpg",
+      "lisans": "Public domain"
+    }
+  }
+}
