@@ -41,6 +41,16 @@ def _token(m):
     return os.environ.get(f"IG_TOKEN_{m.upper()}") or os.environ["IG_TOKEN"]
 
 
+def _son_sloganlar(m: str, tarih: dt.date, gun: int = 14) -> list[str]:
+    sonuc = []
+    for i in range(1, gun + 1):
+        b = _oku(KOK / "yayin/gonderi" / (tarih - dt.timedelta(days=i)).isoformat() / "bilgi.json", {})
+        s = (b.get("markalar", {}).get(m) or {}).get("slogan")
+        if s:
+            sonuc.append(s)
+    return sonuc
+
+
 def aday_fotograflar(medyalar: list[dict], kullanilan: set, bugun: dt.date) -> list[dict]:
     """Eski, daha önce kullanılmamış fotoğraflar. Albümlerde ilk fotoğraf alınır; videolar atlanır."""
     sinir = bugun - dt.timedelta(days=EN_YENI_GUN)
@@ -79,6 +89,12 @@ def uret(tarih: dt.date, sadece=None) -> Path:
         kendi = set(kullanilan.get(m, {}).get("paylasilan", []))
         secilmis = set(kullanilan.get(m, {}).get("kaynak", []))
         adaylar = [a for a in aday_fotograflar(medyalar, secilmis, tarih) if a["id"] not in kendi]
+        # Daha önce seçilen bir gönderiye ±3 gün yakın olanlar büyük ihtimalle aynı çekim/aynı iş: atla
+        zamanlar = {m2["id"]: m2["timestamp"][:10] for m2 in medyalar}
+        kullanilan_gunler = [dt.date.fromisoformat(zamanlar[i]) for i in secilmis if i in zamanlar]
+        adaylar = [a for a in adaylar if all(abs((dt.date.fromisoformat(a["timestamp"][:10]) - g).days) > 3
+                                             for g in kullanilan_gunler)]
+        son_sloganlar = _son_sloganlar(m, tarih)
         print(f"[bilgi] {m}: {len(medyalar)} gönderi, {len(adaylar)} uygun eski fotoğraf")
         if not adaylar:
             print(f"[uyarı] {m}: kullanılabilecek eski fotoğraf kalmadı, bugün atlanıyor")
@@ -93,7 +109,7 @@ def uret(tarih: dt.date, sadece=None) -> Path:
         for aday in adaylar[:6]:   # reklam görseli çıkarsa sıradakini dene
             r = requests.get(aday["foto_url"], timeout=60)
             r.raise_for_status()
-            metin = secici.gonderi_metni(r.content, aday.get("caption", ""), marka)
+            metin = secici.gonderi_metni(r.content, aday.get("caption", ""), marka, son_sloganlar)
             if metin.get("urun_fotografi") is not False:
                 break
             print(f"[bilgi] {m}: {aday.get('permalink')} ürün fotoğrafı değil, atlandı")

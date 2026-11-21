@@ -102,6 +102,11 @@ def _yapay_zeka(sistem: str, mesaj: str) -> str:
     return "".join(b.get("text", "") for b in r.json()["content"])
 
 
+def _turkce_mi(metin: str) -> bool:
+    """ASCII'ye dönüştürülmüş Türkçe metni yakalar (ör. 'yayimlandi')."""
+    return len(metin) < 40 or any(h in metin for h in "çğıöşüÇĞİÖŞÜ")
+
+
 def _dogrula(cevap: dict, adaylar, markalar) -> list[str]:
     hatalar = []
     for m in markalar:
@@ -117,6 +122,8 @@ def _dogrula(cevap: dict, adaylar, markalar) -> list[str]:
             hatalar.append(f"{m}: başlık boş ya da çok uzun")
         if len(s.get("aciklama", "")) > 130:
             hatalar.append(f"{m}: açıklama çok uzun")
+        if not _turkce_mi(s.get("baslik", "") + " " + s.get("aciklama", "")):
+            hatalar.append(f"{m}: Türkçe karakterler eksik (ı, ş, ğ, ü, ö, ç kullanılmalı)")
         if not re.fullmatch(r"\d{1,2} [A-ZÇĞİÖŞÜ]+ \d{1,4}", s.get("tarih", "")):
             hatalar.append(f"{m}: tarih biçimi hatalı")
     return hatalar
@@ -157,17 +164,21 @@ ya da işle ilgisiz bir fotoğrafsa urun_fotografi = false yaz (diğer alanları
 Kusursuz Türkçe. Yalnızca şu JSON'u yaz: {{"urun_fotografi": true, "slogan": "...", "alt_satir": "...", "aciklama": "..."}}"""
 
 
-def gonderi_metni(foto_baytlari: bytes, eski_aciklama: str, marka: dict) -> dict:
+def gonderi_metni(foto_baytlari: bytes, eski_aciklama: str, marka: dict, son_sloganlar=()) -> dict:
     """Gemini'ye fotoğrafı da göstererek slogan ve açıklama yazdırır."""
     import base64
     sistem = GONDERI_KURALLARI.format(ad=marka["ad"], tanim=marka.get("gonderi_tanim", ""))
     mesaj = f"Eski açıklama (bilgi için, kopyalama):\n{(eski_aciklama or '-')[:800]}"
+    if son_sloganlar:
+        mesaj += "\n\nSon günlerde kullanılan sloganlar (bunlardan FARKLI ve özgün bir slogan yaz):\n- " + "\n- ".join(son_sloganlar)
     for _ in range(3):
         metin = _gemini(sistem, mesaj, gorsel=base64.b64encode(foto_baytlari).decode())
         try:
             c = json.loads(re.search(r"\{.*\}", metin, re.S).group(0))
             if c.get("urun_fotografi") is False:
                 return c
+            if c.get("slogan") in son_sloganlar or not _turkce_mi(c.get("aciklama", "")):
+                raise ValueError("tekrar ya da Türkçe karakter sorunu")
             if c.get("slogan") and c.get("aciklama") and len(c["slogan"]) <= 60 and len(c.get("alt_satir", "")) <= 60:
                 return c
         except Exception:
