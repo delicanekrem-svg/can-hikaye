@@ -70,7 +70,7 @@ jobs:
           git config user.email "hikaye-bot@users.noreply.github.com"
           git add yayin/
           git diff --cached --quiet || git commit -m "Hikaye: ${{ steps.t.outputs.tarih }}"
-          git push
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
 
       - name: 07:00'yi bekle
         if: github.event_name == 'schedule' || github.event.inputs.bekle == 'true'
