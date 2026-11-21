@@ -1,0 +1,33 @@
+{
+  "tarih": "2026-11-21",
+  "markalar": {
+    "canbasimevi": {
+      "tur": "gecmiste_bugun",
+      "id": 2,
+      "dosya": "Thomas Edison2.jpg",
+      "tarih": "21 KASIM 1877",
+      "baslik": "Thomas Edison pikapı icat ettiğini duyurdu.",
+      "aciklama": "Ses kayıt cihazı olan fonografın icadı tüm dünyada büyük bir yankı uyandırdı.",
+      "kaynak": "Görsel: Louis Bachrach, Bachrach Studios, restored… · Public domain · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "Edison, pikapı (ses kayıt cihazı) icat ettiğini duyurdu.",
+      "yil": 1877,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg",
+      "lisans": "Public domain"
+    },
+    "canwedding": {
+      "tur": "gecmiste_bugun",
+      "id": 17,
+      "dosya": "God Save the King (sheet, 1745).png",
+      "tarih": "21 KASIM 1977",
+      "baslik": "Yeni Zelanda ikinci ulusal marşını kabul etti.",
+      "aciklama": "God Defend New Zealand ülkenin resmi marşları arasına katıldı.",
+      "kaynak": "Görsel: Unknown authorUnknown author · Public domain · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "\"God Defend New Zealand\" became New Zealand's second national anthem, on equal standing with \"God Save the King\", which had been the traditional anthem since 1840.",
+      "yil": 1977,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:God_Save_the_King_(sheet,_1745).png",
+      "lisans": "Public domain"
+    }
+  }
+}
