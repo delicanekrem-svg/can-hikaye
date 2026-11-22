@@ -30,6 +30,9 @@ def markalari_oku() -> dict:
 
 def kaynak_satiri(g: dict) -> str:
     sahibi = re.sub(r"\s*\(.*?\)", "", g.get("sahibi") or "").strip()
+    # "Unknown author", "Unknown authorUnknown author The image..." gibi değerler: sahibi bilinmiyor
+    if re.search(r"unknown|anonymous|bilinmiyor", sahibi, re.I):
+        sahibi = ""
     if len(sahibi) > 45:
         sahibi = sahibi[:44].rsplit(" ", 1)[0] + "…"
     parcalar = [f"Görsel: {sahibi}" if sahibi else "Görsel", g.get("lisans", ""), "Wikimedia Commons"]
