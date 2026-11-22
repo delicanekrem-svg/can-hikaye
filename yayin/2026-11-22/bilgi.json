@@ -1,0 +1,33 @@
+{
+  "tarih": "2026-11-22",
+  "markalar": {
+    "canbasimevi": {
+      "tur": "gecmiste_bugun",
+      "id": 2,
+      "dosya": "Gülhane II (1903).jpg",
+      "tarih": "22 KASIM 1909",
+      "baslik": "Diş Hekimliği bölümü kuruldu.",
+      "aciklama": "Tıp Fakültesi'ne başlı Diş Hekimliği bölümü eğitime başlamak üzere kuruldu.",
+      "kaynak": "Görsel: Unknown authorUnknown author · Public domain · Wikimedia Commons",
+      "sablon": "gazete",
+      "olay": "Tıp Fakültesi'ne bağlı Diş Hekimliği bölümü kuruldu.",
+      "yil": 1909,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:G%C3%BClhane_II_(1903).jpg",
+      "lisans": "Public domain"
+    },
+    "canwedding": {
+      "tur": "gecmiste_bugun",
+      "id": 6,
+      "dosya": "Maurice Ravel 1925.jpg",
+      "tarih": "22 KASIM 1928",
+      "baslik": "Ravel'in Bolérosu ilk kez sahnelendi.",
+      "aciklama": "Ravel'in dünyaca ünlü eseri Boléro, ilk kez Paris'te sanatseverlerle buluştu.",
+      "kaynak": "Görsel: Unknown authorUnknown author The image… · Public domain · Wikimedia Commons",
+      "sablon": "gazete",
+      "olay": "Ravel'in Bolérosu ilk kez Paris'te sahnelendi.",
+      "yil": 1928,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Maurice_Ravel_1925.jpg",
+      "lisans": "Public domain"
+    }
+  }
+}
