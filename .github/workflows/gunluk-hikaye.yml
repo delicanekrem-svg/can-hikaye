@@ -1,6 +1,13 @@
 name: Günlük Instagram Hikayesi
 
 on:
+  # Yedek: GitHub'ın kendi zamanlayıcısı saatlerce gecikebilir. Erken gelirse görseli önceden hazırlar,
+  # paylaşım penceresi içindeyse paylaşır, pencere dışındaysa paylaşmaz (gece paylaşım olmaz).
+  # Asıl dakik tetikleme cron-job.org'dan (workflow_dispatch, bekle=true) gelir.
+  schedule:
+    - cron: "20 21 * * *"
+    - cron: "20 3 * * *"
+    - cron: "47 5 * * *"
   workflow_dispatch:
     inputs:
       tarih:
@@ -67,14 +74,21 @@ jobs:
           for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
 
       - name: 07:00'yi bekle
-        if: github.event_name == 'schedule' || github.event.inputs.bekle == 'true'
+        if: github.event.inputs.bekle == 'true'
         run: |
           hedef=$(TZ=Europe/Istanbul date -d "${{ steps.t.outputs.tarih }} 07:00" +%s)
           simdi=$(date +%s)
           if [ "$hedef" -gt "$simdi" ]; then sleep $((hedef - simdi)); fi
 
+      - name: Paylaşım penceresi
+        id: p
+        run: |
+          s=$(TZ=Europe/Istanbul date +%H%M)
+          if [ "$s" -ge 0700 ] && [ "$s" -le 1030 ]; then echo "icinde=true" >> "$GITHUB_OUTPUT"; else echo "icinde=false" >> "$GITHUB_OUTPUT"; fi
+          echo "Türkiye saati $s, pencere 0700-1030"
+
       - name: Instagram'a paylaş
-        if: github.event_name == 'schedule' || github.event.inputs.yayinla == 'true'
+        if: github.event.inputs.yayinla == 'true' || (github.event_name == 'schedule' && steps.p.outputs.icinde == 'true')
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           IG_ID_CANBASIMEVI: ${{ secrets.IG_ID_CANBASIMEVI }}
