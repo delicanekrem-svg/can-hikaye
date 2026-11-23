@@ -1,13 +1,6 @@
 name: Günlük İş Hikayesi
 
 on:
-  schedule:
-    # 15:20 UTC = 18:20 Türkiye. İş hikayesi hazırlanır, 19:00'da paylaşılır.
-    # GitHub zamanlayıcısı garantili olmadığı için yedek saatler var; tekrar paylaşım olmaz.
-    - cron: "20 15 * * *"   # 18:20
-    - cron: "47 15 * * *"   # 18:47
-    - cron: "13 16 * * *"   # 19:13 (yedek)
-    - cron: "41 16 * * *"   # 19:41 (yedek)
   workflow_dispatch:
     inputs:
       tarih:
@@ -32,7 +25,7 @@ concurrency:
 jobs:
   gonderi:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 200
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

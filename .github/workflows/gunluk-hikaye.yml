@@ -1,15 +1,6 @@
 name: Günlük Instagram Hikayesi
 
 on:
-  schedule:
-    # 03:20 UTC = 06:20 Türkiye. Görsel hazırlanır, sonra 07:00'ye kadar beklenip paylaşılır.
-    # GitHub zamanlayıcısı garantili değil (çalışmaları geciktirebilir ya da atlayabilir).
-    # Bu yüzden yedek saatler var; görsel zaten üretilmiş / hikaye zaten paylaşılmışsa tekrar yapılmaz.
-    - cron: "20 3 * * *"   # 06:20
-    - cron: "47 3 * * *"   # 06:47
-    - cron: "13 4 * * *"   # 07:13 (yedek)
-    - cron: "41 4 * * *"   # 07:41 (yedek)
-    - cron: "23 5 * * *"   # 08:23 (son yedek)
   workflow_dispatch:
     inputs:
       tarih:
@@ -34,7 +25,7 @@ concurrency:
 jobs:
   hikaye:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 200
     steps:
       - uses: actions/checkout@v4
 
