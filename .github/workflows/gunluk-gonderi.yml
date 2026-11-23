@@ -44,7 +44,10 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
-        run: python gonderi.py uret --tarih "${{ steps.t.outputs.tarih }}"
+        run: |
+          python gonderi.py uret --tarih "${{ steps.t.outputs.tarih }}" || \
+            (echo "İlk deneme başarısız, 10 dk sonra tekrar denenecek"; sleep 600; \
+             python gonderi.py uret --tarih "${{ steps.t.outputs.tarih }}")
 
       - name: Depoya kaydet
         run: |

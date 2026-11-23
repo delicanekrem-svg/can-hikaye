@@ -52,7 +52,10 @@ jobs:
           if [ -f "yayin/${{ steps.t.outputs.tarih }}/bilgi.json" ]; then
             echo "Bu günün görselleri zaten üretilmiş."
           else
-            python gunluk.py uret --tarih "${{ steps.t.outputs.tarih }}"
+            # Gemini yoğunsa ilk deneme başarısız olabilir: 10 dk bekleyip bir kez daha dene
+            python gunluk.py uret --tarih "${{ steps.t.outputs.tarih }}" || \
+              (echo "İlk deneme başarısız, 10 dk sonra tekrar denenecek"; sleep 600; \
+               python gunluk.py uret --tarih "${{ steps.t.outputs.tarih }}")
           fi
 
       - name: Görselleri depoya kaydet (Instagram buradan çeker)
