@@ -1,0 +1,33 @@
+{
+  "tarih": "2026-11-23",
+  "markalar": {
+    "canbasimevi": {
+      "tur": "gecmiste_bugun",
+      "id": 2,
+      "dosya": "San Francisco skyline from Marin Headlands.jpg",
+      "tarih": "23 KASIM 1889",
+      "baslik": "İlk otomatik plakçalar San Francisco'da hizmete girdi.",
+      "aciklama": "Müzik teknolojisinde çığır açan otomatik cihazlar ilk kez bir salonda yerini aldı.",
+      "kaynak": "Görsel: Ryan Schwark · CC0 · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "İlk otomatik plâkçalar (jukebox), San Francisco'da bir salonda hizmete girdi.",
+      "yil": 1889,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:San_Francisco_skyline_from_Marin_Headlands.jpg",
+      "lisans": "CC0"
+    },
+    "canwedding": {
+      "tur": "gecmiste_bugun",
+      "id": 58,
+      "dosya": "Anne of Denmark 1605.jpg",
+      "tarih": "23 KASIM 1589",
+      "baslik": "İskoçya Kralı James ile Anne evlendi.",
+      "aciklama": "Kraliyet evliliği törenle gerçekleştirildi.",
+      "kaynak": "Görsel: John de Critz · Public domain · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "Marriage of king James VI of Scotland and Anne of Denmark.",
+      "yil": 1589,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Anne_of_Denmark_1605.jpg",
+      "lisans": "Public domain"
+    }
+  }
+}
