@@ -4,12 +4,16 @@
     "canbasimevi": {
       "tur": "kutlama",
       "baslik": "Öğretmenler Günü",
-      "mesaj": "Geleceği emekle yazan tüm öğretmenlerimizin günü kutlu olsun."
+      "mesaj": "Geleceği emekle yazan tüm öğretmenlerimizin günü kutlu olsun.",
+      "yayin_id": "18076240310771118",
+      "yayin_zamani": "2026-11-24T07:00:14+03:00"
     },
     "canwedding": {
       "tur": "kutlama",
       "baslik": "Öğretmenler Günü",
-      "mesaj": "Geleceği emekle yazan tüm öğretmenlerimizin günü kutlu olsun."
+      "mesaj": "Geleceği emekle yazan tüm öğretmenlerimizin günü kutlu olsun.",
+      "yayin_id": "17956115712300464",
+      "yayin_zamani": "2026-11-24T07:00:28+03:00"
     }
   }
 }
