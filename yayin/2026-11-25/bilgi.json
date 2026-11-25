@@ -1,0 +1,33 @@
+{
+  "tarih": "2026-11-25",
+  "markalar": {
+    "canbasimevi": {
+      "tur": "gecmiste_bugun",
+      "id": 5,
+      "dosya": "Ataturk-hatreform.jpg",
+      "tarih": "25 KASIM 1925",
+      "baslik": "TBMM'de Şapka Kanunu kabul edildi.",
+      "aciklama": "Şapka giyilmesine ilişkin yasa kabul edilerek Şapka Devrimi hayata geçirildi.",
+      "kaynak": "Görsel · Public domain · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "Şapka Devrimi: Şapka giyilmesi konusundaki kanun, TBMM'de kabul edildi.",
+      "yil": 1925,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Ataturk-hatreform.jpg",
+      "lisans": "Public domain"
+    },
+    "canwedding": {
+      "tur": "gecmiste_bugun",
+      "id": 44,
+      "dosya": "Agatha Christie in Nederland (detectiveschrijfster), bij aankomst op Schiphol me, Bestanddeelnr 916-8898 (cropped).jpg",
+      "tarih": "25 KASIM 1952",
+      "baslik": "Agatha Christie'nin Fare Kapanı oyunu sahnede.",
+      "aciklama": "Londra'da prömiyerini yapan ünlü tiyatro oyunu tarihe geçen bir klasiğe dönüştü.",
+      "kaynak": "Görsel: Joop van Bilsen for Anefo · CC0 · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "Agatha Christie's murder-mystery play The Mousetrap opens at the Ambassadors Theatre in London's West End after a premiere in Nottingham, UK.  It will become the longest continuously running play in history.",
+      "yil": 1952,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Agatha_Christie_in_Nederland_(detectiveschrijfster),_bij_aankomst_op_Schiphol_me,_Bestanddeelnr_916-8898_(cropped).jpg",
+      "lisans": "CC0"
+    }
+  }
+}
