@@ -1,0 +1,33 @@
+{
+  "tarih": "2026-11-27",
+  "markalar": {
+    "canbasimevi": {
+      "tur": "gecmiste_bugun",
+      "id": 1,
+      "dosya": "Thomas Edison2.jpg",
+      "tarih": "27 KASIM 1909",
+      "baslik": "Thomas Edison ilk sesli film gösterisini yaptı.",
+      "aciklama": "Mucit Thomas Edison, sesli film teknolojisini izleyiciyle buluşturdu.",
+      "kaynak": "Görsel: Louis Bachrach, Bachrach Studios, restored… · Public domain · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "Thomas Edison, ilk sesli film gösterisini yaptı.",
+      "yil": 1909,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg",
+      "lisans": "Public domain"
+    },
+    "canwedding": {
+      "tur": "gecmiste_bugun",
+      "id": 19,
+      "dosya": "Lady Gaga at Joe Biden's inauguration (cropped 5).jpg",
+      "tarih": "27 KASIM 2009",
+      "baslik": "Lady Gaga turnesi müzik tarihine geçti.",
+      "aciklama": "Sanatçı, kariyerinin en çok kazandıran turnesinin ilk konserini verdi.",
+      "kaynak": "Görsel: Carlos M. Vazquez II · CC BY 2.0 · Wikimedia Commons",
+      "sablon": "buyuk_yil",
+      "olay": "Lady Gaga performed the first concert of The Monster Ball Tour, which became the highest-grossing tour in history for a debut headlining artist.",
+      "yil": 2009,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Lady_Gaga_at_Joe_Biden%27s_inauguration_(cropped_5).jpg",
+      "lisans": "CC BY 2.0"
+    }
+  }
+}
