@@ -1,0 +1,33 @@
+{
+  "tarih": "2026-11-28",
+  "markalar": {
+    "canbasimevi": {
+      "tur": "gecmiste_bugun",
+      "id": 56,
+      "dosya": "Gutenberg press.png",
+      "tarih": "28 KASIM 1814",
+      "baslik": "The Times buharlı baskı makinesinde basılan ilk gazete oldu.",
+      "aciklama": "Koenig ve Bauer tasarımı teknoloji, modern gazete baskısında çığır açtı.",
+      "kaynak": "Görsel: International Printing Museum · CC0 · Wikimedia Commons",
+      "sablon": "gazete",
+      "olay": "The Times of London becomes the first newspaper to be produced on a steam-powered printing press, built by the German team of Koenig & Bauer.",
+      "yil": 1814,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Gutenberg_press.png",
+      "lisans": "CC0"
+    },
+    "canwedding": {
+      "tur": "gecmiste_bugun",
+      "id": 23,
+      "dosya": "Beethoven Mähler 1815.jpg",
+      "tarih": "28 KASIM 1811",
+      "baslik": "Beethoven'ın 5. Piyano Konçertosu ilk kez Leipzig'de seslendirildi.",
+      "aciklama": "Ünlü bestecinin ölümsüz eseri Gewandhaus salonunda dinleyicilerle buluştu.",
+      "kaynak": "Görsel: Joseph Willibrord Mähler · Public domain · Wikimedia Commons",
+      "sablon": "gazete",
+      "olay": "Beethoven's Piano Concerto No. 5 premiered at the Gewandhaus in Leipzig.",
+      "yil": 1811,
+      "gorsel_sayfasi": "https://commons.wikimedia.org/wiki/File:Beethoven_M%C3%A4hler_1815.jpg",
+      "lisans": "Public domain"
+    }
+  }
+}
